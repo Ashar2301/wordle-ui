@@ -8,9 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { PlayComponent } from './play/play.component';
 import { DailyComponent } from './daily/daily.component';
 import { RandomComponent } from './random/random.component';
+import { DailyDirective } from './daily/daily.directive';
 
 @NgModule({
-  declarations: [AppComponent, PlayComponent, DailyComponent, RandomComponent],
+  declarations: [AppComponent, PlayComponent, DailyComponent, RandomComponent, DailyDirective],
   imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule],
   providers: [APP_PRIMENG_PROVIDERS],
   bootstrap: [AppComponent],
