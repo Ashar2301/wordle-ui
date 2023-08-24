@@ -1,21 +1,26 @@
 <div class="daily-wrapper d-flex justify-content-center align-items-center">
     <div class="d-flex flex-column justify-content-between h-75" style="width: 40%;">
         <div class="d-flex flex-row justify-content-between" *ngFor="let word of wordMatrix; let i=index">
-            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="1"
+            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="2"
                 style="text-transform:uppercase" [(ngModel)]="word[0].value" #currentInput0 (input)="test(i,0,$event)"
-                (appDaily)="bindInputToMatrix(currentInput0 , word[0])" />
-            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="1"
+                (appDaily)="bindInputToMatrix(currentInput0 , word[0])"
+                (keydown.backspace)="backspaceClickCheck(i,0,$event)" />
+            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="2"
                 style="text-transform:uppercase" [(ngModel)]="word[1].value" #currentInput1 (input)="test(i,1,$event)"
-                (appDaily)="bindInputToMatrix(currentInput1 , word[1])" />
-            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="1"
+                (appDaily)="bindInputToMatrix(currentInput1 , word[1])"
+                (keydown.backspace)="backspaceClickCheck(i,1,$event)" />
+            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="2"
                 style="text-transform:uppercase" [(ngModel)]="word[2].value" #currentInput2 (input)="test(i,2,$event)"
-                (appDaily)="bindInputToMatrix(currentInput2 , word[2])" />
-            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="1"
+                (appDaily)="bindInputToMatrix(currentInput2 , word[2])"
+                (keydown.backspace)="backspaceClickCheck(i,2,$event)" />
+            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="2"
                 style="text-transform:uppercase" [(ngModel)]="word[3].value" #currentInput3 (input)="test(i,3,$event)"
-                (appDaily)="bindInputToMatrix(currentInput3 , word[3])" />
-            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="1"
+                (appDaily)="bindInputToMatrix(currentInput3 , word[3])"
+                (keydown.backspace)="backspaceClickCheck(i,3,$event)" />
+            <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="2"
                 style="text-transform:uppercase" [(ngModel)]="word[4].value" #currentInput4 (input)="test(i,4,$event)"
-                (appDaily)="bindInputToMatrix(currentInput4 , word[4])" (keydown.enter)="checkIfWordleSolved(word,i)" />
+                (appDaily)="bindInputToMatrix(currentInput4 , word[4])"
+                (keydown.backspace)="backspaceClickCheck(i,4,$event)" (keydown.enter)="checkIfWordleSolved(word,i)" />
         </div>
     </div>
 </div>
