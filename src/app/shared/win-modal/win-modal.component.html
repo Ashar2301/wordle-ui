@@ -1,1 +1,25 @@
-<p>win-modal works!</p>
+<div>
+    <h3 class="text-center m-4">Statistics</h3>
+    <div class="stats d-flex justify-content-between">
+        <div class="played d-flex flex-column align-items-center">
+            <h3>1</h3>
+            <p>Played</p>
+        </div>
+        <div class="win d-flex flex-column align-items-center">
+            <h3>100</h3>
+            <p>Win %</p>
+        </div>
+        <div class="streak d-flex flex-column align-items-center">
+            <h3>1</h3>
+            <p>Current Streak</p>
+        </div>
+        <div class="max-streak d-flex flex-column align-items-center">
+            <h3>1</h3>
+            <p>Max Streak</p>
+        </div>
+    </div>
+    <h3 class="text-center m4">Guess Distribution</h3>
+    <div class="distribution d-flex justify-content-center align-items-center">
+        <p-chart type="doughnut" [data]="pieData"  [style]="{'width': '30%'}"></p-chart>
+    </div>
+</div>

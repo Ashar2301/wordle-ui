@@ -21,6 +21,7 @@ import { ChipsModule } from 'primeng/chips';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {ChartModule} from 'primeng/chart';
 //
 export const APP_PRIMENG_MODULE = [
   SharedModule,
@@ -43,7 +44,8 @@ export const APP_PRIMENG_MODULE = [
   ChipsModule,
   CardModule,
   DividerModule,
-  DynamicDialogModule
+  DynamicDialogModule,
+  ChartModule
 ];
 //
 export const APP_PRIMENG_COMPONENTS = [Dialog, ConfirmDialog, Header, Footer];

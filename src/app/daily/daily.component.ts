@@ -63,6 +63,8 @@ export class DailyComponent implements OnInit, OnChanges {
         { value: '', reference: undefined },
       ],
     ];
+
+    this.showWinModal();
   }
 
   returnWordFromArray = (word: Array<any>): string => {
@@ -173,8 +175,11 @@ export class DailyComponent implements OnInit, OnChanges {
 
   showWinModal() {
     const ref = this.dialogService.open(WinModalComponent, {
-        header: 'WIN',
-        width: '70%'
+        header : 'Congratulations',
+        width: '70%',
+        data : {
+          attempt : 4
+        }
     });
 }
   ngOnChanges(changes: SimpleChanges): void {
