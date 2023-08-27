@@ -12,7 +12,7 @@ import {
   styleUrls: ['./daily.component.scss'],
 })
 export class DailyComponent implements OnInit, OnChanges {
-  answerWord: string = 'SALET';
+  answerWord: string = 'SALET'; 
   @Input() wordMatrix: Array<any> = [];
   constructor() {}
 
@@ -78,34 +78,57 @@ export class DailyComponent implements OnInit, OnChanges {
       return;
     }
     if (i + 1 < this.wordMatrix.length) {
-      this.colorTheLetters(i);
+      this.colorTheLetters2(i);
       let nextWord = this.wordMatrix[i + 1][0];
       nextWord.reference.focus();
     }
   };
 
-  colorTheLetters = (i: number) => {
+  colorTheLetters2=(i:number)=>{
+    let listOfYellowIndices:Array<number> = [];
+    let yellowIndexMap:any = {};
     this.wordMatrix[i].forEach((elm: any, index: number) => {
-      switch (this.answerWord.search(elm.value.toUpperCase())) {
-        case index: {
-          elm.reference.style.backgroundColor = 'green';
-          elm.reference.style.color = 'black';
-          break;
+      if(elm.value.toUpperCase() === this.answerWord[index].toUpperCase())
+      {
+        elm.reference.style.backgroundColor = 'green';
+        elm.reference.style.color = 'black';
+        if(yellowIndexMap[elm.value.toUpperCase()] !== undefined)
+        {
+          yellowIndexMap[elm.value.toUpperCase()]--;
         }
-        case -1: {
-          elm.reference.style.backgroundColor = 'red';
-          elm.reference.style.color = 'black';
-          break;
-        }
-        default: {
-          elm.reference.style.backgroundColor = 'yellow';
-          elm.reference.style.color = 'black';
-          break;
+        else
+        {
+          yellowIndexMap[elm.value.toUpperCase()] = -1;
         }
       }
-    });
-  };
+      else if(this.answerWord.search(elm.value.toUpperCase()) === -1)
+      {
+        elm.reference.style.backgroundColor = 'red';
+        elm.reference.style.color = 'black';
+      }
+      else
+      {
+        listOfYellowIndices.push(index);
+        yellowIndexMap[elm.value.toUpperCase()]!==undefined ? yellowIndexMap[elm.value.toUpperCase()]++ : yellowIndexMap[elm.value.toUpperCase()] = 1;
+      }
+    })
 
+    this.wordMatrix[i].forEach((elm: any, index: number) => {
+      if(elm.reference.style.backgroundColor !== 'green' && elm.reference.style.backgroundColor !== 'red')
+      {
+        if(yellowIndexMap[elm.value.toUpperCase()] > 0)
+        {
+          elm.reference.style.backgroundColor = 'yellow';
+          elm.reference.style.color = 'black';
+        }
+        else
+        {
+          elm.reference.style.backgroundColor = 'red';
+          elm.reference.style.color = 'black';
+        }
+      }
+    })
+  }
 
   onInputChange = (i: number, j: number, event: any) => {
     if (
