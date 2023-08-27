@@ -9,10 +9,12 @@ import { PlayComponent } from './play/play.component';
 import { DailyComponent } from './daily/daily.component';
 import { RandomComponent } from './random/random.component';
 import { DailyDirective } from './daily/daily.directive';
-
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import { WinModalComponent } from './shared/win-modal/win-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
-  declarations: [AppComponent, PlayComponent, DailyComponent, RandomComponent, DailyDirective],
-  imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule],
+  declarations: [AppComponent, PlayComponent, DailyComponent, RandomComponent, DailyDirective, WinModalComponent],
+  imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule , DynamicDialogModule , BrowserAnimationsModule],
   providers: [APP_PRIMENG_PROVIDERS],
   bootstrap: [AppComponent],
 })

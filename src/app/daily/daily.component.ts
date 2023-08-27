@@ -5,16 +5,18 @@ import {
   SimpleChanges,
   Input,
 } from '@angular/core';
-
+import { DialogService } from 'primeng/dynamicdialog';
+import { WinModalComponent } from '../shared/win-modal/win-modal.component';
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.component.html',
   styleUrls: ['./daily.component.scss'],
+  providers: [DialogService]
 })
 export class DailyComponent implements OnInit, OnChanges {
   answerWord: string = 'SALET'; 
   @Input() wordMatrix: Array<any> = [];
-  constructor() {}
+  constructor(public dialogService: DialogService) {}
 
   ngOnInit(): void {
     this.wordMatrix = [
@@ -74,17 +76,18 @@ export class DailyComponent implements OnInit, OnChanges {
     console.log(this.wordMatrix);
 
     if (this.answerWord === this.returnWordFromArray(word)) {
-      console.log('CORRECT');
+      this.colorTheLetters(i);
+      this.showWinModal();
       return;
     }
     if (i + 1 < this.wordMatrix.length) {
-      this.colorTheLetters2(i);
+      this.colorTheLetters(i);
       let nextWord = this.wordMatrix[i + 1][0];
       nextWord.reference.focus();
     }
   };
 
-  colorTheLetters2=(i:number)=>{
+  colorTheLetters=(i:number)=>{
     let listOfYellowIndices:Array<number> = [];
     let yellowIndexMap:any = {};
     this.wordMatrix[i].forEach((elm: any, index: number) => {
@@ -167,6 +170,13 @@ export class DailyComponent implements OnInit, OnChanges {
   bindInputToMatrix = (htmlElm: any, word: any) => {
     word.reference = htmlElm;
   };
+
+  showWinModal() {
+    const ref = this.dialogService.open(WinModalComponent, {
+        header: 'WIN',
+        width: '70%'
+    });
+}
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
