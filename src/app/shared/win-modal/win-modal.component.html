@@ -20,6 +20,14 @@
     </div>
     <h3 class="text-center m4">Guess Distribution</h3>
     <div class="distribution d-flex justify-content-center align-items-center">
-        <p-chart type="doughnut" [data]="pieData"  [style]="{'width': '30%'}"></p-chart>
+        <p-chart type="doughnut" [data]="pieData" [options]="pieOptions" [style]="{'width': '40%'}"></p-chart>
     </div>
+    <p class="text-center">New Wordle will appear in <strong *ngIf="hoursUntilNewWordle > 0">{{hoursUntilNewWordle}} hour(s) , </strong>
+    <strong>{{minutesUntilNewWordle}} minute(s)</strong></p>
+    <div class="d-flex justify-content-between mt-4">
+        <button pButton icon="pi pi-refresh" iconPos="right">Play Random Wordle</button>
+        <p-divider layout="vertical"></p-divider>
+        <button pButton icon="pi pi-times" iconPos="right">Close</button>
+    </div>
+    
 </div>
