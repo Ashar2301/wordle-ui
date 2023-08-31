@@ -12,8 +12,10 @@ import { DailyDirective } from './daily/daily.directive';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { WinModalComponent } from './shared/win-modal/win-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
-  declarations: [AppComponent, PlayComponent, DailyComponent, RandomComponent, DailyDirective, WinModalComponent],
+  declarations: [AppComponent, PlayComponent, DailyComponent, RandomComponent, DailyDirective, WinModalComponent, LoginComponent, SignupComponent],
   imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule , DynamicDialogModule , BrowserAnimationsModule],
   providers: [APP_PRIMENG_PROVIDERS],
   bootstrap: [AppComponent],

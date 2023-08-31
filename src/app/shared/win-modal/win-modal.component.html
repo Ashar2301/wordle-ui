@@ -1,33 +1,54 @@
-<div>
+<div class="d-flex justify-content-between">
+  <div class="stats w-50 mt-5">
     <h3 class="text-center m-4">Statistics</h3>
-    <div class="stats d-flex justify-content-between">
-        <div class="played d-flex flex-column align-items-center">
-            <h3>1</h3>
-            <p>Played</p>
-        </div>
-        <div class="win d-flex flex-column align-items-center">
-            <h3>100</h3>
-            <p>Win %</p>
-        </div>
-        <div class="streak d-flex flex-column align-items-center">
-            <h3>1</h3>
-            <p>Current Streak</p>
-        </div>
-        <div class="max-streak d-flex flex-column align-items-center">
-            <h3>1</h3>
-            <p>Max Streak</p>
-        </div>
+    <div class="d-flex align-items-center justify-content-center">
+      <table class="table table-dark table-striped">
+        <tr>
+          <th>Played</th>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th>Win %</th>
+          <td>100</td>
+        </tr>
+        <tr>
+          <th>Current Streak</th>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th>Max Streak</th>
+          <td>1</td>
+        </tr>
+      </table>
     </div>
+  </div>
+  <div class="distribution w-100">
     <h3 class="text-center m4">Guess Distribution</h3>
     <div class="distribution d-flex justify-content-center align-items-center">
-        <p-chart type="doughnut" [data]="pieData" [options]="pieOptions" [style]="{'width': '40%'}"></p-chart>
+      <p-chart
+        type="doughnut"
+        [data]="pieData"
+        [options]="pieOptions"
+        [style]="{ width: '300px' }"
+      ></p-chart>
     </div>
-    <p class="text-center">New Wordle will appear in <strong *ngIf="hoursUntilNewWordle > 0">{{hoursUntilNewWordle}} hour(s) , </strong>
-    <strong>{{minutesUntilNewWordle}} minute(s)</strong></p>
-    <div class="d-flex justify-content-between mt-4">
-        <button pButton icon="pi pi-refresh" iconPos="right">Play Random Wordle</button>
-        <p-divider layout="vertical"></p-divider>
-        <button pButton icon="pi pi-times" iconPos="right">Close</button>
-    </div>
-    
+  </div>
+</div>
+<div class="footer">
+  <p class="text-center">
+    New Wordle will appear in
+    <strong *ngIf="hoursUntilNewWordle > 0"
+      >{{ hoursUntilNewWordle }} hour(s) ,
+    </strong>
+    <strong>{{ minutesUntilNewWordle }} minute(s)</strong>
+  </p>
+  <div class="d-flex justify-content-between mt-4">
+    <button pButton icon="pi pi-refresh" iconPos="right">
+      Play Random Wordle
+    </button>
+    <p-divider layout="vertical"></p-divider>
+    <button pButton icon="pi pi-times" iconPos="right" (click)="onCloseClick()">
+      Close
+    </button>
+  </div>
 </div>

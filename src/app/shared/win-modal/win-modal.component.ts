@@ -15,8 +15,8 @@ export class WinModalComponent implements OnInit {
 
   pieData: any = {};
   pieOptions: any = {};
-  hoursUntilNewWordle : number = 0;
-  minutesUntilNewWordle : number = 0;
+  hoursUntilNewWordle: number = 0;
+  minutesUntilNewWordle: number = 0;
   ngOnInit(): void {
     console.log(this.config.data?.attempt);
     this.pieData = {
@@ -58,15 +58,20 @@ export class WinModalComponent implements OnInit {
     const tempTomorrowDate: Date = new Date(
       currentDate.getTime() + 24 * 60 * 60 * 1000
     );
-    const tomorrowDate :Date = new Date(tempTomorrowDate.getFullYear() , tempTomorrowDate.getMonth() , tempTomorrowDate.getDate());
-
-    const timeRemaining: number =
-    tomorrowDate.getTime() - currentDate.getTime();
-    
-    this.hoursUntilNewWordle = Math.floor(timeRemaining / (1000 * 60 * 60));
-    this.minutesUntilNewWordle = Math.floor(
-      (timeRemaining / (1000 * 60)) % 60
+    const tomorrowDate: Date = new Date(
+      tempTomorrowDate.getFullYear(),
+      tempTomorrowDate.getMonth(),
+      tempTomorrowDate.getDate()
     );
 
+    const timeRemaining: number =
+      tomorrowDate.getTime() - currentDate.getTime();
+
+    this.hoursUntilNewWordle = Math.floor(timeRemaining / (1000 * 60 * 60));
+    this.minutesUntilNewWordle = Math.floor((timeRemaining / (1000 * 60)) % 60);
   }
+
+  onCloseClick = () => {
+    this.ref.close();
+  };
 }

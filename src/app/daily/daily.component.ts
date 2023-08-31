@@ -11,10 +11,10 @@ import { WinModalComponent } from '../shared/win-modal/win-modal.component';
   selector: 'app-daily',
   templateUrl: './daily.component.html',
   styleUrls: ['./daily.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService],
 })
 export class DailyComponent implements OnInit, OnChanges {
-  answerWord: string = 'SALET'; 
+  answerWord: string = 'SALET';
   @Input() wordMatrix: Array<any> = [];
   constructor(public dialogService: DialogService) {}
 
@@ -89,73 +89,64 @@ export class DailyComponent implements OnInit, OnChanges {
     }
   };
 
-  colorTheLetters=(i:number)=>{
-    let listOfYellowIndices:Array<number> = [];
-    let yellowIndexMap:any = {};
+  colorTheLetters = (i: number) => {
+    let listOfYellowIndices: Array<number> = [];
+    let yellowIndexMap: any = {};
     this.wordMatrix[i].forEach((elm: any, index: number) => {
-      if(elm.value.toUpperCase() === this.answerWord[index].toUpperCase())
-      {
+      if (elm.value.toUpperCase() === this.answerWord[index].toUpperCase()) {
         elm.reference.style.backgroundColor = 'green';
         elm.reference.style.color = 'black';
-        if(yellowIndexMap[elm.value.toUpperCase()] !== undefined)
-        {
+        if (yellowIndexMap[elm.value.toUpperCase()] !== undefined) {
           yellowIndexMap[elm.value.toUpperCase()]--;
-        }
-        else
-        {
+        } else {
           yellowIndexMap[elm.value.toUpperCase()] = -1;
         }
-      }
-      else if(this.answerWord.search(elm.value.toUpperCase()) === -1)
-      {
+      } else if (this.answerWord.search(elm.value.toUpperCase()) === -1) {
         elm.reference.style.backgroundColor = 'red';
         elm.reference.style.color = 'black';
-      }
-      else
-      {
+      } else {
         listOfYellowIndices.push(index);
-        yellowIndexMap[elm.value.toUpperCase()]!==undefined ? yellowIndexMap[elm.value.toUpperCase()]++ : yellowIndexMap[elm.value.toUpperCase()] = 1;
+        yellowIndexMap[elm.value.toUpperCase()] !== undefined
+          ? yellowIndexMap[elm.value.toUpperCase()]++
+          : (yellowIndexMap[elm.value.toUpperCase()] = 1);
       }
-    })
+    });
 
     this.wordMatrix[i].forEach((elm: any, index: number) => {
-      if(elm.reference.style.backgroundColor !== 'green' && elm.reference.style.backgroundColor !== 'red')
-      {
-        if(yellowIndexMap[elm.value.toUpperCase()] > 0)
-        {
+      if (
+        elm.reference.style.backgroundColor !== 'green' &&
+        elm.reference.style.backgroundColor !== 'red'
+      ) {
+        if (yellowIndexMap[elm.value.toUpperCase()] > 0) {
           elm.reference.style.backgroundColor = 'yellow';
           elm.reference.style.color = 'black';
-        }
-        else
-        {
+        } else {
           elm.reference.style.backgroundColor = 'red';
           elm.reference.style.color = 'black';
         }
       }
-    })
-  }
+    });
+  };
 
   onInputChange = (i: number, j: number, event: any) => {
     if (
       (event.keyCode >= 65 && event.keyCode <= 90) ||
       event.key === 'Backspace'
     ) {
-
       if (event.keyCode >= 65 && event.keyCode <= 90) {
         this.wordMatrix[i][j].value = event.key;
         this.wordMatrix[i][j].reference.value = event.key;
       }
 
       if (event.key === 'Backspace') {
-
-        if(this.wordMatrix[i][j].value.length > 0 && this.wordMatrix[i][j].value !== ' ')
-        {
+        if (
+          this.wordMatrix[i][j].value.length > 0 &&
+          this.wordMatrix[i][j].value !== ' '
+        ) {
           this.wordMatrix[i][j].value = ' ';
           this.wordMatrix[i][j].reference.value = ' ';
           return;
-        }
-        else if (j - 1 >= 0) {
-
+        } else if (j - 1 >= 0) {
           this.wordMatrix[i][j - 1].reference.focus();
         }
       } else {
@@ -175,13 +166,14 @@ export class DailyComponent implements OnInit, OnChanges {
 
   showWinModal() {
     const ref = this.dialogService.open(WinModalComponent, {
-        header : 'Congratulations',
-        width: '70%',
-        data : {
-          attempt : 4
-        }
+      header: 'Congratulations',
+      width: '70vw',
+      height: '80vh',
+      data: {
+        attempt: 4,
+      },
     });
-}
+  }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
