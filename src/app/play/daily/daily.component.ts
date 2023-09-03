@@ -6,7 +6,7 @@ import {
   Input,
 } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { WinModalComponent } from '../shared/win-modal/win-modal.component';
+import { WinModalComponent } from 'src/app/shared/win-modal/win-modal.component';
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.component.html',
