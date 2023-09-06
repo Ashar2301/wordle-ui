@@ -8,7 +8,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { WinModalComponent } from './shared/win-modal/win-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
-  declarations: [AppComponent, WinModalComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule , DynamicDialogModule , BrowserAnimationsModule],
   providers: [APP_PRIMENG_PROVIDERS],
   bootstrap: [AppComponent],
