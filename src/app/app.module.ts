@@ -7,9 +7,12 @@ import { FormsModule } from '@angular/forms';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { WinModalComponent } from './shared/win-modal/win-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule , DynamicDialogModule , BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule, APP_PRIMENG_MODULE, FormsModule , DynamicDialogModule , BrowserAnimationsModule , HttpClientModule ,NgxSpinnerModule],
   providers: [APP_PRIMENG_PROVIDERS],
   bootstrap: [AppComponent],
 })

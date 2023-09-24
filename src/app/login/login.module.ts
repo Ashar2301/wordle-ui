@@ -4,7 +4,8 @@ import { APP_PRIMENG_MODULE, APP_PRIMENG_PROVIDERS } from 'primeng.import';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup/signup.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import { SignupComponent } from './signup/signup.component';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    APP_PRIMENG_MODULE
+    ReactiveFormsModule,
+    APP_PRIMENG_MODULE,
+    NgxSpinnerModule
   ],
   providers: [APP_PRIMENG_PROVIDERS],
 })
