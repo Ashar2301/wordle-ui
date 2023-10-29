@@ -17,13 +17,15 @@ export class WinModalComponent implements OnInit {
   pieOptions: any = {};
   hoursUntilNewWordle: number = 0;
   minutesUntilNewWordle: number = 0;
+  userData:any = {};
   ngOnInit(): void {
     console.log(this.config.data?.attempt);
+    this.userData = this.config.data;
     this.pieData = {
       labels: ['1', '2', '3', '4', '5', '6'],
       datasets: [
         {
-          data: [1, 1, 1, 1, 1, 1],
+          data: this.userData.guessDistribution,
           backgroundColor: [
             '#071426',
             '#003F59',

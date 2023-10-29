@@ -1,20 +1,38 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-
+import { PlayService } from 'src/app/play/play.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
+const wordExists = require('word-exists');
 @Component({
   selector: 'app-wordle',
   templateUrl: './wordle.component.html',
-  styleUrls: ['./wordle.component.scss']
+  styleUrls: ['./wordle.component.scss'],
+  providers: [MessageService],
 })
 export class WordleComponent implements OnInit {
-
   @Output() result = new EventEmitter<boolean>();
   @Input() answerWord: string = 'SALET';
   @Input() wordMatrix: Array<any> = [];
+  @Input() gameObject: any;
   countMap: any = {};
-  constructor(public dialogService: DialogService) {}
+  constructor(
+    public dialogService: DialogService,
+    private playService: PlayService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
+    console.log(this.gameObject);
+
     this.wordMatrix = [
       [
         { value: '', reference: undefined },
@@ -65,64 +83,108 @@ export class WordleComponent implements OnInit {
         ? (this.countMap[this.answerWord[i]] = 1)
         : this.countMap[this.answerWord[i]]++;
     }
-    
+
     // this.showWinModal();
   }
 
-  returnWordFromArray = (word: Array<any>): string => {
-    let retWord: string = '';
+  returnWordFromArray = (word: Array<any>): string[] => {
+    let retWord: string[] = [];
     word.forEach((elm) => {
-      retWord += elm.value;
+      retWord.push(elm.value);
     });
-    return retWord.toUpperCase();
+    return retWord;
+  };
+
+  isSolved = (response: string[]): boolean => {
+    let flag: boolean = true;
+    response.forEach((elm: string) => {
+      if (elm !== 'G') flag = false;
+    });
+
+    return flag;
+  };
+
+  checkIfWordExists = (wordArr: Array<any>) => {
+    let word: string = '';
+    wordArr.forEach((elm) => {
+      word += elm.value;
+    });
+    console.log(word);
+    console.log(wordExists(word));
+
+    return wordExists(word);
   };
   checkIfWordleSolved = (word: Array<any>, i: number) => {
     console.log(this.wordMatrix);
 
-    if (this.answerWord === this.returnWordFromArray(word)) {
-      this.colorTheLetters(i);
-      // this.showWinModal();
-      this.result.emit(true);
-      return;
-    }
-    if (i + 1 < this.wordMatrix.length) {
-      this.colorTheLetters(i);
-      let nextWord = this.wordMatrix[i + 1][0];
-      nextWord.reference.focus();
+    if (!this.checkIfWordExists(word)) {
+
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Word does not exist',
+      });
+    } else {
+      const payload: any = {
+        email: localStorage.getItem('userEmail'),
+        gameID: this.gameObject._id,
+        attempt: this.returnWordFromArray(word),
+        attemptNumber: i + 1,
+      };
+      let response: any;
+      this.playService
+        .registerAttempt(payload, this.gameObject.type)
+        .subscribe({
+          next: (res: HttpResponse<string[]>) => {
+            console.log(res);
+
+            response = res;
+          },
+          error: (err: HttpErrorResponse) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: err.error,
+            });
+          },
+          complete: () => {
+            console.log(response);
+
+            this.colorTheLetters(i, response);
+            if (this.isSolved(response)) {
+              this.result.emit(true);
+            } else {
+              if (i + 1 < this.wordMatrix.length) {
+                let nextWord = this.wordMatrix[i + 1][0];
+                nextWord.reference.focus();
+              }
+            }
+          },
+        });
     }
   };
 
-  colorTheLetters=(i:number)=>{
-    let currentCountMap:any = this.countMap;
+  colorTheLetters = (i: number, colors: string[]) => {
+    console.log(colors);
+
     this.wordMatrix[i].forEach((elm: any, index: number) => {
-      if (elm.value.toUpperCase() === this.answerWord[index].toUpperCase()) {
-        elm.reference.style.backgroundColor = 'green';
-        elm.reference.style.color = 'black';
-        currentCountMap[elm.value.toUpperCase()]--;
-      }
-      else if (this.answerWord.search(elm.value.toUpperCase()) === -1) {
-        elm.reference.style.backgroundColor = 'red';
-        elm.reference.style.color = 'black';
-      }
-    })
-    this.wordMatrix[i].forEach((elm: any, index: number) => {
-      if (
-        elm.reference.style.backgroundColor !== 'green' &&
-        elm.reference.style.backgroundColor !== 'red'
-      ) {
-        if(currentCountMap[elm.value.toUpperCase()] > 0)
-        {
-          elm.reference.style.backgroundColor = 'yellow';
-          elm.reference.style.color = 'black';
+      switch (colors[index]) {
+        case 'G': {
+          elm.reference.style.backgroundColor = 'green';
+          break;
         }
-        else
-        {
+        case 'R': {
           elm.reference.style.backgroundColor = 'red';
-          elm.reference.style.color = 'black';
+          break;
+        }
+        case 'Y': {
+          elm.reference.style.backgroundColor = 'yellow';
+          break;
         }
       }
+      elm.reference.style.color = 'black';
     });
-  }
+  };
 
   onInputChange = (i: number, j: number, event: any) => {
     if (
@@ -160,7 +222,19 @@ export class WordleComponent implements OnInit {
     word.reference = htmlElm;
   };
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    let ind = -1;
+    this.gameObject?.attempts.letters.forEach(
+      (elm: string[], index: number) => {
+        ind = index;
+        for (let i = 0; i < elm.length; i++) {
+          this.wordMatrix[index][i].value = elm[i];
+        }
+      }
+    );
+    if (ind + 1 < this.wordMatrix.length)
+      this.wordMatrix[ind + 1][0].reference.focus();
+    this.gameObject?.attempts.colors.forEach((elm: string[], index: number) => {
+      this.colorTheLetters(index, elm);
+    });
   }
-
 }

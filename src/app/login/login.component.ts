@@ -8,14 +8,14 @@ import {
 } from '@angular/forms';
 import { LoginService } from './login.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers : [MessageService]
+  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private spinner: NgxSpinnerService,
     private messageService: MessageService,
-    private router :Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -65,10 +65,18 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(this.loginForm.value).subscribe({
       next: (res: HttpResponse<any>) => {
         this.spinner.hide();
-        this.router.navigate(['/play'])
+        localStorage.setItem('userEmail', this.loginForm.value.email);
+        this.router.navigate(['/play']);
       },
       error: (err: HttpErrorResponse) => {
-        this.messageService.add({severity:'error', summary: 'Error', detail: err.error})
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error,
+        });
+        this.spinner.hide();
+      },
+      complete: () => {
         this.spinner.hide();
       },
     });

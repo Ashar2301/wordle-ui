@@ -109,7 +109,7 @@ export class SignupComponent implements OnInit {
     this.loginService.signUpUser(this.signupForm.value).subscribe({
       next: (res: HttpResponse<any>) => {
         this.spinner.hide();
-        this.router.navigate(['/login'])
+        this.router.navigate(['/'])
       },
       error: (err: HttpErrorResponse) => {
         this.messageService.add({severity:'error', summary: 'Error', detail: err.error})
