@@ -5,6 +5,7 @@ import { PlayService } from '../play.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
+import { LoseModalComponent } from 'src/app/shared/lose-modal/lose-modal.component';
 @Component({
   selector: 'app-random',
   templateUrl: './random.component.html',
@@ -20,8 +21,10 @@ export class RandomComponent implements OnInit, OnChanges {
   ) {}
   gameObject: any;
   userRandomStats: any;
+  answerWord: string = '';
   ngOnInit(): void {
     this.generateRandomGame();
+    // this.showLoseModal();
   }
   generateRandomGame = () => {
     this.spinner.show();
@@ -29,7 +32,6 @@ export class RandomComponent implements OnInit, OnChanges {
       next: (res: HttpResponse<any>) => {
         this.gameObject = res.body;
         this.gameObject.type = 'random';
-        console.log(res.body);
       },
       error: (err: HttpErrorResponse) => {
         this.messageService.add({
@@ -43,12 +45,12 @@ export class RandomComponent implements OnInit, OnChanges {
       },
     });
   };
-  getRandomStats = () => {
+  getRandomStats = (result: boolean) => {
     this.spinner.show();
     this.playService.returnStats('random').subscribe({
       next: (res: HttpResponse<any>) => {
         this.userRandomStats = res.body;
-        console.log(res.body);
+        this.userRandomStats.gameType = 'RANDOM'
       },
       error: (err: HttpErrorResponse) => {
         this.messageService.add({
@@ -59,13 +61,38 @@ export class RandomComponent implements OnInit, OnChanges {
       },
       complete: () => {
         this.spinner.hide();
-        this.showWinModal();
+        if (result) this.showWinModal();
+        else
+          (this.userRandomStats.answerWord = this.answerWord),
+            this.showLoseModal();
+      },
+    });
+  };
+
+  getAnswerWord = (result: boolean) => {
+    this.spinner.show();
+    this.playService.returnAnswerWord('RANDOM', this.gameObject._id).subscribe({
+      next: (res: HttpResponse<any>) => {
+        this.answerWord = res.body;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error,
+        });
+      },
+      complete: () => {
+        this.spinner.hide();
+        this.getRandomStats(result);
       },
     });
   };
   evaluateResult = (result: boolean) => {
     if (result) {
-      this.getRandomStats();
+      this.getRandomStats(result);
+    } else {
+      this.getAnswerWord(result);
     }
   };
   showWinModal() {
@@ -76,7 +103,13 @@ export class RandomComponent implements OnInit, OnChanges {
       data: this.userRandomStats,
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+  showLoseModal() {
+    const ref = this.dialogService.open(LoseModalComponent, {
+      header: 'Unlucky',
+      width: '70vw',
+      height: '80vh',
+      data: this.userRandomStats,
+    });
   }
+  ngOnChanges(changes: SimpleChanges): void {}
 }

@@ -5,11 +5,13 @@ import {
   RouterModule,
   Routes,
 } from '@angular/router';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {
     path: 'play',
     loadChildren: () => import('./play/play.module').then((m) => m.PlayModule),
+    canActivate: [AuthGuard],
   },
   {
     path: '',

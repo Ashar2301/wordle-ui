@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {
   FormBuilder,
@@ -9,7 +9,8 @@ import {
 import { LoginService } from './login.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiCallsInterceptorInterceptor } from '../shared/api-calls-interceptor.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -24,16 +25,31 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private spinner: NgxSpinnerService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private apiCallsInterceptor: ApiCallsInterceptorInterceptor
   ) {}
 
   ngOnInit(): void {
+    this.spinner.hide();
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, this.validateEmail]],
       password: ['', Validators.required],
     });
+    if (
+      this.apiCallsInterceptor.isTokenInvalidFunction() ||
+      localStorage.getItem('userEmail') === ''
+    ) {
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Info',
+          detail: 'Token expired. Please login again',
+        });
+      });
+    }
   }
-
+  loadMessage = () => {};
   isFormDisabled = (): boolean => {
     return !this.loginForm.valid;
   };
@@ -80,6 +96,5 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       },
     });
-    // console.log(resp);
   };
 }

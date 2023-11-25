@@ -35,7 +35,7 @@
   </div>
 </div>
 <div class="footer">
-  <p class="text-center">
+  <p class="text-center" *ngIf="gameType === 'DAILY'">
     New Wordle will appear in
     <strong *ngIf="hoursUntilNewWordle > 0"
       >{{ hoursUntilNewWordle }} hour(s) ,
@@ -43,7 +43,7 @@
     <strong>{{ minutesUntilNewWordle }} minute(s)</strong>
   </p>
   <div class="d-flex justify-content-between mt-4">
-    <button pButton icon="pi pi-refresh" iconPos="right">
+    <button pButton icon="pi pi-refresh" iconPos="right" (click)="navigateToRandomGames()">
       Play Random Wordle
     </button>
     <p-divider layout="vertical"></p-divider>

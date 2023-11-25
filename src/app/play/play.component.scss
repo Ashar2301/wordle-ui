@@ -13,17 +13,17 @@
     margin-left    : 10%;
     border         : 1px solid white;
     text-align     : center;
-    height         : 60vh;
+    height         : 56vh;
     margin-top     : 20vh;
     display        : flex;
     justify-content: center;
-    align-items    : center;
+    align-items    :center;
 }
 .option-2 ::ng-deep .p-card {
     margin-right   : 10%;
     border         : 1px solid white;
     text-align     : center;
-    height         : 60vh;
+    height         : 56vh;
     margin-top     : 20vh;
     display        : flex;
     justify-content: center;
@@ -31,19 +31,17 @@
 }
 
 .cardz-footer{
-  visibility      : hidden;
+//   visibility      : hidden;
   position        : relative;
   bottom          : 50px;
-  left            : 0;
   width           : 90%;
-  height          : 10vh;
+//   height          : 10vh;
   border-radius   : 8px;
   color           : white;
-  transform       : translateY(100%);
-  transition      : transform 0.3s ease;
   background-color: inherit;
+  border-bottom: 1px solid white;
 }
-.cardz:hover .cardz-footer {
-    visibility: visible;
-    transform : translateY(0);
-  }
+// .cardz:hover .cardz-footer {
+//     visibility: visible;
+//     transform : translateY(0);
+//   }

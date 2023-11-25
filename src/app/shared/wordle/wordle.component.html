@@ -1,6 +1,6 @@
 <p-toast position="top-center"></p-toast>
-<div class="daily-wrapper d-flex justify-content-center align-items-center">
-    <div class="d-flex flex-column justify-content-between h-75" style="width: 40%;">
+<div class="daily-wrapper d-flex justify-content-around align-items-center">
+    <div class="d-flex flex-column justify-content-between h-75" style="width: 30%;">
         <div class="d-flex flex-row justify-content-between" *ngFor="let word of wordMatrix; let i=index">
             <input type="text" class="p-inputtext-sm letter-input" pInputText maxlength="1"
                 style="text-transform:uppercase" [(ngModel)]="word[0].value" #currentInput0 (keydown)="onInputChange(i,0,$event)"
@@ -22,6 +22,46 @@
                 style="text-transform:uppercase" [(ngModel)]="word[4].value" #currentInput4 (keydown)="onInputChange(i,4,$event)"
                 (appWordle)="bindInputToMatrix(currentInput4 , word[4])"
                  (keydown.enter)="checkIfWordleSolved(word,i)" />
+        </div>
+    </div>
+    <div id="keyboard d-flex flex-column">
+<!-- <button pButton pRipple type="button" label="Success" class="p-button-success p-button-text"></button> -->
+<!-- <button pButton pRipple type="button" label="Warning" class="p-button-warning p-button-text"></button> -->
+<!-- <button pButton pRipple type="button" label="Danger" class="p-button-danger p-button-text"></button> -->
+<!-- <button pButton pRipple type="button" label="Plain" class="p-button-text p-button-plain"></button> -->
+        <div class="row1">
+            <button pButton pRipple type="button" label="Q" class="p-button-text p-button-plain" id="q-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('q',81)"></button>
+            <button pButton pRipple type="button" label="W" class="p-button-text p-button-plain" id="w-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('w',87)"></button>
+            <button pButton pRipple type="button" label="E" class="p-button-text p-button-plain" id="e-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('e',69)"></button>
+            <button pButton pRipple type="button" label="R" class="p-button-text p-button-plain" id="r-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('r',82)"></button>
+            <button pButton pRipple type="button" label="T" class="p-button-text p-button-plain" id="t-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('t',84)"></button>
+            <button pButton pRipple type="button" label="Y" class="p-button-text p-button-plain" id="y-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('y',89)"></button>
+            <button pButton pRipple type="button" label="U" class="p-button-text p-button-plain" id="u-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('u',85)"></button>
+            <button pButton pRipple type="button" label="I" class="p-button-text p-button-plain" id="i-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('i',73)"></button>
+            <button pButton pRipple type="button" label="O" class="p-button-text p-button-plain" id="o-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('o',79)"></button>
+            <button pButton pRipple type="button" label="P" class="p-button-text p-button-plain" id="p-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('p',80)"></button>
+        </div>
+        <div class="row1 ml-4">
+            <button pButton pRipple type="button" label="A" class="p-button-text p-button-plain" id="a-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('a',65)"></button>
+            <button pButton pRipple type="button" label="S" class="p-button-text p-button-plain" id="s-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('s',83)"></button>
+            <button pButton pRipple type="button" label="D" class="p-button-text p-button-plain" id="d-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('d',68)"></button>
+            <button pButton pRipple type="button" label="F" class="p-button-text p-button-plain" id="f-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('f',70)"></button>
+            <button pButton pRipple type="button" label="G" class="p-button-text p-button-plain" id="g-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('g',71)"></button>
+            <button pButton pRipple type="button" label="H" class="p-button-text p-button-plain" id="h-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('h',72)"></button>
+            <button pButton pRipple type="button" label="J" class="p-button-text p-button-plain" id="j-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('j',74)"></button>
+            <button pButton pRipple type="button" label="K" class="p-button-text p-button-plain" id="k-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('k',75)"></button>
+            <button pButton pRipple type="button" label="L" class="p-button-text p-button-plain" id="l-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('l',76)"></button>
+        </div>
+        <div class="row1">
+            <button pButton pRipple type="button" label="ENTER" class="p-button-text p-button-plain" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('Enter',-1)"></button>
+            <button pButton pRipple type="button" label="Z" class="p-button-text p-button-plain" id="z-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('z',90)"></button>
+            <button pButton pRipple type="button" label="X" class="p-button-text p-button-plain" id="x-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('x',88)"></button>
+            <button pButton pRipple type="button" label="C" class="p-button-text p-button-plain" id="c-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('c',67)"></button>
+            <button pButton pRipple type="button" label="V" class="p-button-text p-button-plain" id="v-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('v',86)"></button>
+            <button pButton pRipple type="button" label="B" class="p-button-text p-button-plain" id="b-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('b',66)"></button>
+            <button pButton pRipple type="button" label="N" class="p-button-text p-button-plain" id="n-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('n',78)"></button>
+            <button pButton pRipple type="button" label="M" class="p-button-text p-button-plain" id="m-btn" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('m',77)"></button>
+            <button pButton pRipple type="button" label="BACK" class="p-button-text p-button-plain" (mousedown)="onMouseDown($event)" (click)="onVirtualKeyboardClick('Backspace',8)"></button>
         </div>
     </div>
 </div>

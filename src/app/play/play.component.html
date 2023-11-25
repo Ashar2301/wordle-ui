@@ -1,28 +1,70 @@
 <div class="grid d-flex justify-content-between play-wrapper">
-    <div class="col-5 ml-100 cardz">
-        <p-card class="play-options option-1">
-            <h2>DAILY</h2>
-            <ng-template pTemplate="footer">
-                Play today's WORDLE
-            </ng-template>
-        </p-card>
-        <div class="cardz-footer" style="margin-left: 10%;">
-            <button pButton pRipple type="button" label="START" class="w-100" [routerLink]="['/play/daily']"></button>
-        </div>
+  <div class="col-5 ml-100 cardz">
+    <p-card class="play-options option-1">
+      <h2>DAILY</h2>
+      <ng-template pTemplate="footer">
+        <div class="d-flex flex-column mt-7">
+          <div>Play today's WORDLE</div>
 
-    </div>
-    <div class="col-1">
-        <p-divider layout="vertical"></p-divider>
-    </div>
-    <div class="col-5 mr-10 cardz">
-        <p-card class="play-options option-2 ">
-            <h2>RANDOM</h2>
-            <ng-template pTemplate="footer">
-                Play WORDLE with random words
-            </ng-template>
-        </p-card>
-        <div class="cardz-footer">
-            <button pButton pRipple type="button" label="START" class="w-100" [routerLink]="['/play/random']"></button>
+          <p-toggleButton
+            [(ngModel)]="dailyIsHardMode"
+            onLabel="Hard Mode : ON"
+            offLabel="Hard Mode : OFF"
+            class="w-100 mt-8"
+          ></p-toggleButton>
         </div>
+      </ng-template>
+    </p-card>
+    <div class="cardz-footer" style="margin-left: 10%">
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="START"
+        class="w-100"
+        (click)="setDailyHardMode()"
+      ></button>
     </div>
+  </div>
+  <div class="col-1">
+    <p-divider layout="vertical"></p-divider>
+  </div>
+  <div class="col-5 mr-10 cardz">
+    <p-card class="play-options option-2">
+      <h2>RANDOM</h2>
+      <ng-template pTemplate="footer">
+        <div class="d-flex flex-column mt-7">
+          <div>Play WORDLE with random words</div>
+          <p-toggleButton
+            [(ngModel)]="randomIsHardMode"
+            onLabel="Hard Mode : ON"
+            offLabel="Hard Mode : OFF"
+            class="w-100 mt-8"
+          ></p-toggleButton>
+        </div>
+      </ng-template>
+    </p-card>
+    <div class="cardz-footer">
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="START"
+        class="w-100"
+        (click)="setRandomHardMode()"
+      ></button>
+    </div>
+  </div>
 </div>
+<!-- <p-toggleButton
+          [(ngModel)]="randomIsHardMode"
+          onLabel="Hard Mode : ON"
+          offLabel="Hard Mode : OFF"
+          class="w-100"
+        ></p-toggleButton>
+        <p-toggleButton
+        [(ngModel)]="dailyIsHardMode"
+        onLabel="Hard Mode : ON"
+        offLabel="Hard Mode : OFF"
+        class="w-100"
+      ></p-toggleButton> -->

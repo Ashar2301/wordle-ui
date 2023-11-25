@@ -23,6 +23,7 @@ import { DividerModule } from 'primeng/divider';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {ChartModule} from 'primeng/chart';  
 import {ToastModule} from 'primeng/toast';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 //
 export const APP_PRIMENG_MODULE = [
   SharedModule,
@@ -47,7 +48,8 @@ export const APP_PRIMENG_MODULE = [
   DividerModule,
   DynamicDialogModule,
   ChartModule,
-  ToastModule
+  ToastModule,
+  ToggleButtonModule
 ];
 //
 export const APP_PRIMENG_COMPONENTS = [Dialog, ConfirmDialog, Header, Footer];
