@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  SERVER_API_URL : 'http://localhost:3000'
+  SERVER_API_URL : 'https://wordle-api-five.vercel.app'
 };
