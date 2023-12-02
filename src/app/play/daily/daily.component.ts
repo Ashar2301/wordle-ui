@@ -41,6 +41,7 @@ export class DailyComponent implements OnInit, OnChanges {
         this.gameObject.type = 'daily';
       },
       error: (err: HttpErrorResponse) => {
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -61,6 +62,7 @@ export class DailyComponent implements OnInit, OnChanges {
         this.userDailyStats.gameType = 'DAILY'
       },
       error: (err: HttpErrorResponse) => {
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -84,6 +86,7 @@ export class DailyComponent implements OnInit, OnChanges {
         this.answerWord = res.body;
       },
       error: (err: HttpErrorResponse) => {
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

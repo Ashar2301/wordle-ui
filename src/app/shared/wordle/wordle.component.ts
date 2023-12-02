@@ -11,6 +11,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PlayService } from 'src/app/play/play.service';
 import { SharedService } from '../shared.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 const wordExists = require('word-exists');
 @Component({
   selector: 'app-wordle',
@@ -33,7 +34,8 @@ export class WordleComponent implements OnInit {
     public dialogService: DialogService,
     private playService: PlayService,
     private messageService: MessageService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -117,8 +119,10 @@ export class WordleComponent implements OnInit {
     return true;
   };
   checkIfWordleSolved = (word: Array<any>, i: number) => {
+    this.spinner.show();
     this.isHardMode = this.gameObject?.hardMode;
     if (!this.checkIfWordExists(word)) {
+      this.spinner.hide();
       this.messageService.add({
         severity: 'info',
         summary: 'Info',
@@ -147,6 +151,7 @@ export class WordleComponent implements OnInit {
           }
         }
         if (!flag) {
+          this.spinner.hide();
           this.messageService.add({
             severity: 'info',
             summary: 'Info',
@@ -170,6 +175,7 @@ export class WordleComponent implements OnInit {
           }
         }
         if (!flag) {
+          this.spinner.hide();
           this.messageService.add({
             severity: 'info',
             summary: 'Info',
@@ -192,6 +198,7 @@ export class WordleComponent implements OnInit {
             response = res;
           },
           error: (err: HttpErrorResponse) => {
+            this.spinner.hide();
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
@@ -199,6 +206,7 @@ export class WordleComponent implements OnInit {
             });
           },
           complete: () => {
+            this.spinner.hide();
             this.colorTheLetters(i, response);
             this.colorTheKeyboardLetters(payload.attempt, response);
             if (this.isSolved(response)) {

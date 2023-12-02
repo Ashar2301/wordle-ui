@@ -34,6 +34,7 @@ export class RandomComponent implements OnInit, OnChanges {
         this.gameObject.type = 'random';
       },
       error: (err: HttpErrorResponse) => {
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -53,6 +54,7 @@ export class RandomComponent implements OnInit, OnChanges {
         this.userRandomStats.gameType = 'RANDOM'
       },
       error: (err: HttpErrorResponse) => {
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -76,6 +78,7 @@ export class RandomComponent implements OnInit, OnChanges {
         this.answerWord = res.body;
       },
       error: (err: HttpErrorResponse) => {
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

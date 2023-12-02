@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { APP_PRIMENG_MODULE, APP_PRIMENG_PROVIDERS } from 'primeng.import';
+import { SharedModule } from '../shared/shared.module';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgxSpinnerModule } from "ngx-spinner";
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -17,7 +16,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     LoginRoutingModule,
     ReactiveFormsModule,
     APP_PRIMENG_MODULE,
-    NgxSpinnerModule
+    SharedModule
   ],
   providers: [APP_PRIMENG_PROVIDERS],
 })
