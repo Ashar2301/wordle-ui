@@ -1,0 +1,47 @@
+<div
+  class="header-wrapper d-flex flex-row justify-content-between align-items-center"
+  style="color: white"
+>
+  <div class="order-1" style="width: 33%"></div>
+  <div class="order-2" style="width: 33%">
+    <h1 class="text-center">WORDLE</h1>
+  </div>
+  <div
+    class="d-flex justify-content-end align-items-center order-3"
+    style="width: 33%"
+  >
+    <div class="mr-4" (click)="onShowStatsClick()">
+      <span
+        class="material-symbols-outlined stats-icon"
+        pTooltip="Stats"
+        tooltipPosition="bottom"
+      >
+        leaderboard
+      </span>
+    </div>
+    <div class="mr-4">
+      <ngx-avatars
+        [name]="email"
+        [style]="customStyles"
+        size="40"
+        (click)="menu.toggle($event)"
+      ></ngx-avatars>
+      <p-overlayPanel #menu class="overlay">
+        <div class="d-flex flex-column">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Report a bug"
+            class="mb-2"
+          >
+            <span class="material-symbols-outlined"> bug_report </span>
+          </button>
+          <button pButton pRipple type="button" label="Log out" (click)="onLogoutClick()">
+            <span class="material-symbols-outlined logout-icon"> logout </span>
+          </button>
+        </div>
+      </p-overlayPanel>
+    </div>
+  </div>
+</div>

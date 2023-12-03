@@ -24,6 +24,9 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {ChartModule} from 'primeng/chart';  
 import {ToastModule} from 'primeng/toast';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {MenuItem} from 'primeng/api';
 //
 export const APP_PRIMENG_MODULE = [
   SharedModule,
@@ -49,7 +52,9 @@ export const APP_PRIMENG_MODULE = [
   DynamicDialogModule,
   ChartModule,
   ToastModule,
-  ToggleButtonModule
+  ToggleButtonModule,
+  OverlayPanelModule,
+  TabMenuModule,
 ];
 //
 export const APP_PRIMENG_COMPONENTS = [Dialog, ConfirmDialog, Header, Footer];

@@ -6,12 +6,11 @@ import {
   Input,
 } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { WinModalComponent } from 'src/app/shared/win-modal/win-modal.component';
 import { PlayService } from '../play.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
-import { LoseModalComponent } from 'src/app/shared/lose-modal/lose-modal.component';
+import { StatsModalComponent } from 'src/app/shared/stats-modal/stats-modal.component';
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.component.html',
@@ -20,8 +19,6 @@ import { LoseModalComponent } from 'src/app/shared/lose-modal/lose-modal.compone
 })
 export class DailyComponent implements OnInit, OnChanges {
   gameObject: any;
-  userDailyStats: any;
-  answerWord: string = '';
   constructor(
     public dialogService: DialogService,
     private playService: PlayService,
@@ -54,74 +51,37 @@ export class DailyComponent implements OnInit, OnChanges {
     });
   };
 
-  getRandomStats = (result: boolean) => {
-    this.spinner.show();
-    this.playService.returnStats('daily').subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.userDailyStats = res.body;
-        this.userDailyStats.gameType = 'DAILY'
-      },
-      error: (err: HttpErrorResponse) => {
-        this.spinner.hide();
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error,
-        });
-      },
-      complete: () => {
-        this.spinner.hide();
-        if (result) this.showWinModal();
-        else
-          (this.userDailyStats.answerWord = this.answerWord),
-            this.showLoseModal();
-      },
-    });
-  };
-
-  getAnswerWord = (result: boolean) => {
-    this.spinner.show();
-    this.playService.returnAnswerWord('DAILY', this.gameObject._id).subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.answerWord = res.body;
-      },
-      error: (err: HttpErrorResponse) => {
-        this.spinner.hide();
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error,
-        });
-      },
-      complete: () => {
-        this.spinner.hide();
-        this.getRandomStats(result);
-      },
-    });
-  };
   evaluateResult = (result: boolean) => {
     if (result) {
-      this.getRandomStats(result);
+      this.showWinModal();
     } else {
-      this.getAnswerWord(result);
+      this.showLoseModal();
     }
   };
   showWinModal() {
-    const ref = this.dialogService.open(WinModalComponent, {
+    const ref = this.dialogService.open(StatsModalComponent, {
       header: 'Congratulations',
       width: '70vw',
       height: '80vh',
-      data: this.userDailyStats,
+      data: {
+        gameObject: this.gameObject,
+        gameType: 'DAILY',
+        showFooter: true,
+      },
     });
   }
   showLoseModal() {
-    const ref = this.dialogService.open(LoseModalComponent, {
+    const ref = this.dialogService.open(StatsModalComponent, {
       header: 'Unlucky',
       width: '70vw',
       height: '80vh',
-      data: this.userDailyStats,
+      data: {
+        gameObject: this.gameObject,
+        gameType: 'DAILY',
+        showFooter: true,
+        showAnswerWord: true,
+      },
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 }
