@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { PlayService } from 'src/app/play/play.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-stats-modal',
@@ -39,7 +40,8 @@ export class StatsModalComponent implements OnInit {
     public dialogService: DialogService,
     private playService: PlayService,
     private spinner: NgxSpinnerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sharedService : SharedService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,8 @@ export class StatsModalComponent implements OnInit {
       : false;
     this.gameObject = this.config.data.gameObject;
     this.gameType = this.config.data.gameType;
-
+    // this.showFooter = true;
+    // this.gameType = 'DAILY'
     if (this.gameType === 'DAILY') {
       this.getDailyStats();
       if (this.showAnswerWord) this.getAnswerWordDaily();
@@ -205,4 +208,7 @@ export class StatsModalComponent implements OnInit {
     if (this.gameType === 'RANDOM') window.location.reload();
     else this.router.navigate(['/play/random']);
   };
+  isMobileScreen(): boolean {
+    return this.sharedService.isMobileScreen();
+  }
 }

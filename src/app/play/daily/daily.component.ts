@@ -61,7 +61,7 @@ export class DailyComponent implements OnInit, OnChanges {
   showWinModal() {
     const ref = this.dialogService.open(StatsModalComponent, {
       header: 'Congratulations',
-      width: '70vw',
+      width: '80vw',
       height: '80vh',
       data: {
         gameObject: this.gameObject,
@@ -73,8 +73,8 @@ export class DailyComponent implements OnInit, OnChanges {
   showLoseModal() {
     const ref = this.dialogService.open(StatsModalComponent, {
       header: 'Unlucky',
-      width: '70vw',
-      height: '80vh',
+      width: '90vw',
+      height: '90vh',
       data: {
         gameObject: this.gameObject,
         gameType: 'DAILY',

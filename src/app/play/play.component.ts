@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayService } from './play.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-play',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./play.component.scss'],
 })
 export class PlayComponent implements OnInit {
-  constructor(private playService: PlayService, private router: Router) {}
+  constructor(private playService: PlayService, private router: Router , private sharedService: SharedService) {}
 
   randomIsHardMode: boolean = false;
   dailyIsHardMode: boolean = false;
@@ -24,4 +25,8 @@ export class PlayComponent implements OnInit {
     this.playService.setDailyHardMode(this.dailyIsHardMode);
     this.router.navigate(['/play/daily']);
   };
+
+  isMobileScreen(): boolean {
+    return this.sharedService.isMobileScreen();
+  }
 }

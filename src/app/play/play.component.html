@@ -1,21 +1,19 @@
 <loader></loader>
 <header></header>
-<div class="grid d-flex justify-content-between play-wrapper">
+<div class="grid d-flex justify-content-between play-wrapper" *ngIf="!isMobileScreen()">
   <div class="col-5 ml-100 cardz">
     <p-card class="play-options option-1">
       <h2>DAILY</h2>
-      <ng-template pTemplate="footer">
-        <div class="d-flex flex-column mt-7">
-          <div>Play today's WORDLE</div>
+      <div class="d-flex flex-column mt-7 justify-content-between">
+        <div>Play today's WORDLE</div>
 
-          <p-toggleButton
-            [(ngModel)]="dailyIsHardMode"
-            onLabel="Hard Mode : ON"
-            offLabel="Hard Mode : OFF"
-            class="w-100 mt-8"
-          ></p-toggleButton>
-        </div>
-      </ng-template>
+        <p-toggleButton
+          [(ngModel)]="dailyIsHardMode"
+          onLabel="Hard Mode : ON"
+          offLabel="Hard Mode : OFF"
+          class="w-100 mt-8"
+        ></p-toggleButton>
+      </div>
     </p-card>
     <div class="cardz-footer" style="margin-left: 10%">
       <button
@@ -34,17 +32,15 @@
   <div class="col-5 mr-10 cardz">
     <p-card class="play-options option-2">
       <h2>RANDOM</h2>
-      <ng-template pTemplate="footer">
-        <div class="d-flex flex-column mt-7">
-          <div>Play WORDLE with random words</div>
-          <p-toggleButton
-            [(ngModel)]="randomIsHardMode"
-            onLabel="Hard Mode : ON"
-            offLabel="Hard Mode : OFF"
-            class="w-100 mt-8"
-          ></p-toggleButton>
-        </div>
-      </ng-template>
+      <div class="d-flex flex-column mt-7 justify-content-between">
+        <div>Play WORDLE with random words</div>
+        <p-toggleButton
+          [(ngModel)]="randomIsHardMode"
+          onLabel="Hard Mode : ON"
+          offLabel="Hard Mode : OFF"
+          class="w-100 mt-8"
+        ></p-toggleButton>
+      </div>
     </p-card>
     <div class="cardz-footer">
       <button
@@ -58,15 +54,55 @@
     </div>
   </div>
 </div>
-<!-- <p-toggleButton
+<div *ngIf="isMobileScreen()" class="d-flex flex-column">
+  <div class="col-12 cardz">
+    <p-card class="play-options option-1">
+      <h2>DAILY</h2>
+      <div class="d-flex flex-column mt-7 justify-content-between">
+        <div>Play today's WORDLE</div>
+
+        <p-toggleButton
+          [(ngModel)]="dailyIsHardMode"
+          onLabel="Hard Mode : ON"
+          offLabel="Hard Mode : OFF"
+          class="w-100 mt-8"
+        ></p-toggleButton>
+      </div>
+    </p-card>
+    <div class="cardz-footer" >
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="START"
+        class="w-100"
+        (click)="setDailyHardMode()"
+      ></button>
+    </div>
+  </div>
+  <div class="col-12 cardz">
+    <p-card class="play-options option-2">
+      <h2>RANDOM</h2>
+      <div class="d-flex flex-column mt-7 justify-content-between">
+        <div>Play WORDLE with random words</div>
+        <p-toggleButton
           [(ngModel)]="randomIsHardMode"
           onLabel="Hard Mode : ON"
           offLabel="Hard Mode : OFF"
-          class="w-100"
+          class="w-100 mt-8"
         ></p-toggleButton>
-        <p-toggleButton
-        [(ngModel)]="dailyIsHardMode"
-        onLabel="Hard Mode : ON"
-        offLabel="Hard Mode : OFF"
+      </div>
+    </p-card>
+    <div class="cardz-footer">
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="START"
         class="w-100"
-      ></p-toggleButton> -->
+        (click)="setRandomHardMode()"
+      ></button>
+    </div>
+  </div>
+</div>
+

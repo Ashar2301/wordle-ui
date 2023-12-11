@@ -401,4 +401,7 @@ export class WordleComponent implements OnInit {
       this.colorTheLetters(index, elm);
     });
   }
+  isMobileScreen(): boolean {
+    return this.sharedService.isMobileScreen();
+  }
 }

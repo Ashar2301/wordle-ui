@@ -31,8 +31,8 @@ export class HeaderComponent implements OnInit {
   onShowStatsClick=()=>{
     const ref = this.dialogService.open(StatsModalComponent, {
       header: 'Your Statistics',
-      width: '70vw',
-      height: '60vh',
+      width: '90vw',
+      height: '90vh',
       data: {
         gameObject: null,
         gameType: 'BOTH',

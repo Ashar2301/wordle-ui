@@ -1,10 +1,16 @@
-.daily-wrapper{
-    background-color: black;
-    height          : 90vh;
-    width           : 100vw;
+.daily-wrapper {
+  background-color: black;
+  height: 90vh;
+  width: 100vw;
 }
 
-.letter-input{  
-    width : 60px;
-    height: 60px;
+.letter-input {
+  width: 60px;
+  height: 60px;
+}
+@media screen and (max-width: 768px) {
+  .keys {
+    font-size: x-small;
+    padding: 0.75rem 0.95rem;
+  }
 }

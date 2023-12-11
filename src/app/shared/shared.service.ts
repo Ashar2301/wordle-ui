@@ -13,4 +13,8 @@ export class SharedService {
   checkIfWordExistsInLocalDictionary = (word: string) => {
     return words.includes(word);
   };
+
+  isMobileScreen(): boolean {
+    return window.innerWidth <= 768;
+  }
 }

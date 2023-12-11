@@ -1,46 +1,64 @@
-.play-wrapper{
-    height          : 90vh;
-    width           : 100%;
-}
+@media screen and (min-width: 768px) {
+  .play-wrapper {
+    height: 90vh;
+    width: 100%;
+  }
 
-.play-options{
-    width      : 50%;
+  .play-options {
+    width: 50%;
     margin-left: 1%;
-}
+  }
 
-.option-1 ::ng-deep .p-card {
-    margin-left    : 10%;
-    border         : 1px solid white;
-    text-align     : center;
-    height         : 56vh;
-    margin-top     : 20vh;
-    display        : flex;
+  .option-1 ::ng-deep .p-card {
+    margin-left: 10%;
+    border: 1px solid white;
+    text-align: center;
+    height: 56vh;
+    margin-top: 20vh;
+    display: flex;
     justify-content: center;
-    align-items    :center;
-}
-.option-2 ::ng-deep .p-card {
-    margin-right   : 10%;
-    border         : 1px solid white;
-    text-align     : center;
-    height         : 56vh;
-    margin-top     : 20vh;
-    display        : flex;
+    align-items: center;
+  }
+  .option-2 ::ng-deep .p-card {
+    margin-right: 10%;
+    border: 1px solid white;
+    text-align: center;
+    height: 56vh;
+    margin-top: 20vh;
+    display: flex;
     justify-content: center;
-    align-items    : center;
-}
+    align-items: center;
+  }
 
-.cardz-footer{
-//   visibility      : hidden;
-  position        : relative;
-  bottom          : 50px;
-  width           : 90%;
-//   height          : 10vh;
-  border-radius   : 8px;
-  color           : white;
-  background-color: inherit;
-  border-bottom: 1px solid white;
+  .cardz-footer {
+    //   visibility      : hidden;
+    position: relative;
+    bottom: 50px;
+    width: 90%;
+    //   height          : 10vh;
+    border-radius: 8px;
+    color: white;
+    background-color: inherit;
+    border-bottom: 1px solid white;
+  }
+  // .cardz:hover .cardz-footer {
+  //     visibility: visible;
+  //     transform : translateY(0);
+  //   }
 }
-// .cardz:hover .cardz-footer {
-//     visibility: visible;
-//     transform : translateY(0);
-//   }
+@media screen and (max-width: 768px) {
+  .option-1 ::ng-deep .p-card {
+    border: 1px solid white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .option-2 ::ng-deep .p-card {
+    border: 1px solid white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
