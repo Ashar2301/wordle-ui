@@ -7,11 +7,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SessionStorageService } from 'ngx-webstorage';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PlayService } from 'src/app/play/play.service';
 import { SharedService } from '../shared.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 const wordExists = require('word-exists');
 @Component({
   selector: 'app-wordle',
@@ -35,7 +36,8 @@ export class WordleComponent implements OnInit {
     private playService: PlayService,
     private messageService: MessageService,
     private sharedService: SharedService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private sessionStorageObject: SessionStorageService
   ) {}
 
   ngOnInit(): void {
@@ -108,7 +110,8 @@ export class WordleComponent implements OnInit {
     // return true;
     let word: string = '';
     wordArr.forEach((elm) => {
-      if (elm.value !== ' ' && elm.value !== '') word += elm.value.toLowerCase();
+      if (elm.value !== ' ' && elm.value !== '')
+        word += elm.value.toLowerCase();
     });
     if (word.length !== 5) return false;
     if (
@@ -133,13 +136,15 @@ export class WordleComponent implements OnInit {
         let flag: boolean = true;
         let hint: string = '';
         for (let i = 0; i < word.length; i++) {
-
           if (this.hardModeCache.red.includes(word[i].value)) {
             flag = false;
             hint = `Word should not contain ${word[i].value.toUpperCase()}`;
             break;
           }
-          if (this.hardModeCache.green.indexOf(word[i].value) !== i && this.hardModeCache.green.indexOf(word[i].value.toUpperCase()) !== -1) {
+          if (
+            this.hardModeCache.green.indexOf(word[i].value) !== i &&
+            this.hardModeCache.green.indexOf(word[i].value.toUpperCase()) !== -1
+          ) {
             flag = false;
             hint = `letter should be ${word[i].value}`;
             if (i == 0) hint = 'First ' + hint;
@@ -163,7 +168,6 @@ export class WordleComponent implements OnInit {
         for (let i = 0; i < this.hardModeCache.yellow.length; i++) {
           let flag2: boolean = false;
           for (let j = 0; j < word.length; j++) {
-            
             if (word[j].value === this.hardModeCache.yellow[i]) {
               flag2 = true;
               break;
@@ -171,7 +175,9 @@ export class WordleComponent implements OnInit {
           }
           if (!flag2) {
             flag = false;
-            hint = `Word should contain ${this.hardModeCache.yellow[i].toUpperCase()}`;
+            hint = `Word should contain ${this.hardModeCache.yellow[
+              i
+            ].toUpperCase()}`;
           }
         }
         if (!flag) {
@@ -185,7 +191,7 @@ export class WordleComponent implements OnInit {
         }
       }
       const payload: any = {
-        email: localStorage.getItem('userEmail'),
+        email: this.sessionStorageObject.retrieve('user_credential'),
         gameID: this.gameObject._id,
         attempt: this.returnWordFromArray(word),
         attemptNumber: i + 1,

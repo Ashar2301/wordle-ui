@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
-  HttpHeaders,
-  HttpResponse,
+  HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { AuthService } from './auth.service';
 @Injectable()
 export class ApiCallsInterceptorInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
-  isTokenInvalid: boolean = false;
+  constructor(private router: Router, private authService: AuthService) {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -23,20 +22,15 @@ export class ApiCallsInterceptorInterceptor implements HttpInterceptor {
         (event) => {
           if (event instanceof HttpResponse) {
             if (event.status === 403) {
-              this.isTokenInvalid = true;
-              localStorage.setItem('userEmail', '');
+              this.authService.logout();
               this.router.navigate(['/']);
-            } else {
-              this.setNewToken(event);
-              this.isTokenInvalid = false;
             }
           }
         },
         (error) => {
           console.error(error);
           if (error.status === 403) {
-            this.isTokenInvalid = true;
-            localStorage.setItem('userEmail', '');
+            this.authService.logout();
             this.router.navigate(['/']);
           }
         }
@@ -44,23 +38,8 @@ export class ApiCallsInterceptorInterceptor implements HttpInterceptor {
     );
   }
 
-  isTokenInvalidFunction = () => {
-    return this.isTokenInvalid;
-  };
-
   beforeRequest = (request: HttpRequest<any>) => {
-    const accessToken = localStorage.getItem('accessToken');
-    const header = new HttpHeaders({ authorization: `Bearer ${accessToken}` });
-    let modifiedRequest = request.clone({ headers: header });
-
+    let modifiedRequest = request.clone({ withCredentials: true });
     return modifiedRequest;
-  };
-
-  setNewToken = (event: HttpResponse<any>) => {
-    event.headers.keys().forEach((keyName) => {
-      if (keyName === 'authorization') {
-        localStorage.setItem('accessToken', event.headers.get(keyName)!);
-      }
-    });
   };
 }

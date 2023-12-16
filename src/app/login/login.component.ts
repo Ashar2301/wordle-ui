@@ -1,16 +1,17 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { LoginService } from './login.service';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
 import { ApiCallsInterceptorInterceptor } from '../shared/api-calls-interceptor.interceptor';
+import { AuthService } from '../shared/auth.service';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private apiCallsInterceptor: ApiCallsInterceptorInterceptor
+    private apiCallsInterceptor: ApiCallsInterceptorInterceptor,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +38,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, this.validateEmail]],
       password: ['', Validators.required],
     });
-    if (
-      this.apiCallsInterceptor.isTokenInvalidFunction() ||
-      localStorage.getItem('userEmail') === ''
-    ) {
+    if (!this.authService.isAuthenticated()) {
       setTimeout(() => {
         this.messageService.add({
           severity: 'info',
@@ -81,7 +80,7 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(this.loginForm.value).subscribe({
       next: (res: HttpResponse<any>) => {
         this.spinner.hide();
-        localStorage.setItem('userEmail', this.loginForm.value.email);
+        this.authService.login(this.loginForm.value.email);
         this.router.navigate(['/play']);
       },
       error: (err: HttpErrorResponse) => {

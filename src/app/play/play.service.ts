@@ -1,7 +1,7 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SessionStorageService } from 'ngx-webstorage';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +11,10 @@ export class PlayService {
   private randomIsHardMode: boolean = false;
   private dailyIsHardMode: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private sessionStorageObject:SessionStorageService) {}
 
   generateGame = (gameType: string) => {
-    const email: string = localStorage.getItem('userEmail')!;
+    const email: string = this.sessionStorageObject.retrieve('user_credential')!;
     const params = new HttpParams()
       .set('email', email)
       .set(
@@ -35,7 +35,7 @@ export class PlayService {
   };
 
   returnStats = (gameType: string) => {
-    const email: string = localStorage.getItem('userEmail')!;
+    const email: string = this.sessionStorageObject.retrieve('user_credential')!;
     const params = new HttpParams().set('email', email);
     return this.http.get<any>(`${this.url}/stats/${gameType}`, {
       params,
@@ -44,7 +44,7 @@ export class PlayService {
   };
 
   returnAnswerWord = (gameType: string, gameId: number) => {
-    const email: string = localStorage.getItem('userEmail')!;
+    const email: string = this.sessionStorageObject.retrieve('user_credential')!;
     const params = new HttpParams()
       .set('email', email)
       .set('gameType', gameType)

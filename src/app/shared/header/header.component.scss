@@ -1,8 +1,5 @@
 .header-wrapper {
-  // background-color: gray;
-  // width           : 99vw;
   height: 9vh;
-  // border: 1px solid white;
 }
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -20,4 +17,7 @@
 .logo{
   width: 74%;
   height: 3rem;
+}
+.display-hidden{
+  visibility: hidden;
 }

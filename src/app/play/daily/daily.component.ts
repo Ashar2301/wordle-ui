@@ -1,16 +1,15 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import {
   Component,
-  OnInit,
   OnChanges,
-  SimpleChanges,
-  Input,
+  OnInit,
+  SimpleChanges
 } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { PlayService } from '../play.service';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { StatsModalComponent } from 'src/app/shared/stats-modal/stats-modal.component';
+import { PlayService } from '../play.service';
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.component.html',

@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { APP_PRIMENG_MODULE, APP_PRIMENG_PROVIDERS } from 'primeng.import';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiCallsInterceptorInterceptor } from './shared/api-calls-interceptor.interceptor';
 import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,7 +21,8 @@ import { SharedModule } from './shared/shared.module';
     DynamicDialogModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    NgxWebstorageModule.forRoot(),
   ],
   providers: [
     APP_PRIMENG_PROVIDERS,

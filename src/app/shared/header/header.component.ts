@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionStorageService } from 'ngx-webstorage';
 import { DialogService } from 'primeng/dynamicdialog';
+import { AuthService } from '../auth.service';
 import { StatsModalComponent } from '../stats-modal/stats-modal.component';
+
 @Component({
   selector: 'header',
   templateUrl: './header.component.html',
@@ -10,7 +13,7 @@ import { StatsModalComponent } from '../stats-modal/stats-modal.component';
 })
 export class HeaderComponent implements OnInit {
   constructor(private router: Router,
-    public dialogService: DialogService,) {}
+    public dialogService: DialogService, private authService:AuthService,private sessionStorageObject:SessionStorageService) {}
   email: string = '';
   customStyles: any = {
     backgroundColor: '#7e7e7e',
@@ -20,11 +23,11 @@ export class HeaderComponent implements OnInit {
     cursor: 'pointer',
   };
   ngOnInit(): void {
-    this.email = localStorage.getItem('userEmail')!;
+    this.email = this.sessionStorageObject.retrieve('user_credential')!;
   }
 
   onLogoutClick = () => {
-    localStorage.setItem('userEmail', '');
+    this.authService.logout();
     this.router.navigate(['/']);
   };
 

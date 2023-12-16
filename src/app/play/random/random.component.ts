@@ -1,10 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { PlayService } from '../play.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { StatsModalComponent } from 'src/app/shared/stats-modal/stats-modal.component';
+import { PlayService } from '../play.service';
 @Component({
   selector: 'app-random',
   templateUrl: './random.component.html',

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlayComponent } from './play.component';
-import { DailyComponent } from './daily/daily.component';
-import { RandomComponent } from './random/random.component';
 import { AuthGuard } from '../shared/auth.guard';
+import { DailyComponent } from './daily/daily.component';
+import { PlayComponent } from './play.component';
+import { RandomComponent } from './random/random.component';
 const routes: Routes = [
   { path: '', component: PlayComponent },
   { path: 'daily', component: DailyComponent, canActivate: [AuthGuard] },

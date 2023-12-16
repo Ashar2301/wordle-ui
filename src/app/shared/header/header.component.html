@@ -15,6 +15,7 @@
   <div
     class="d-flex justify-content-end align-items-center order-3"
     style="width: 33%"
+    [class.display-hidden]="email?.length! <= 0"
   >
     <div class="mr-4" (click)="onShowStatsClick()">
       <span

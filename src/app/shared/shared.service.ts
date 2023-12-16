@@ -1,8 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { words } from 'src/assets/Dictionary/five-letter-words';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })

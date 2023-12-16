@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, Output } from '@angular/core';
 
 @Directive({
   selector: '[appWordle]'
