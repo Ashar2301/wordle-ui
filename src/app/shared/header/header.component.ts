@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionStorageService } from 'ngx-webstorage';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService } from '../auth.service';
 import { StatsModalComponent } from '../stats-modal/stats-modal.component';
@@ -12,9 +11,12 @@ import { StatsModalComponent } from '../stats-modal/stats-modal.component';
   providers: [DialogService],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router,
-    public dialogService: DialogService, private authService:AuthService,private sessionStorageObject:SessionStorageService) {}
-  email: string = '';
+  constructor(
+    private router: Router,
+    public dialogService: DialogService,
+    private authService: AuthService,
+  ) {}
+  name: string = '';
   customStyles: any = {
     backgroundColor: '#7e7e7e',
     border: '1px solid #ffffff',
@@ -23,7 +25,8 @@ export class HeaderComponent implements OnInit {
     cursor: 'pointer',
   };
   ngOnInit(): void {
-    this.email = this.sessionStorageObject.retrieve('user_credential')!;
+    let user = this.authService.returnUser();
+    this.name = user?.name;
   }
 
   onLogoutClick = () => {
@@ -31,7 +34,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   };
 
-  onShowStatsClick=()=>{
+  onShowStatsClick = () => {
     const ref = this.dialogService.open(StatsModalComponent, {
       header: 'Your Statistics',
       width: '90vw',
@@ -43,5 +46,5 @@ export class HeaderComponent implements OnInit {
         showAnswerWord: false,
       },
     });
-  }
+  };
 }

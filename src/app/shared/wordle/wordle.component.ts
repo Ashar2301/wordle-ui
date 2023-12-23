@@ -8,7 +8,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { SessionStorageService } from 'ngx-webstorage';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PlayService } from 'src/app/play/play.service';
@@ -37,7 +36,6 @@ export class WordleComponent implements OnInit {
     private messageService: MessageService,
     private sharedService: SharedService,
     private spinner: NgxSpinnerService,
-    private sessionStorageObject: SessionStorageService
   ) {}
 
   ngOnInit(): void {
@@ -191,7 +189,6 @@ export class WordleComponent implements OnInit {
         }
       }
       const payload: any = {
-        email: this.sessionStorageObject.retrieve('user_credential'),
         gameID: this.gameObject._id,
         attempt: this.returnWordFromArray(word),
         attemptNumber: i + 1,

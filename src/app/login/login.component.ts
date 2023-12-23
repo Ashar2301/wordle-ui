@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, this.validateEmail]],
       password: ['', Validators.required],
+      rememberMe: [false, []],
     });
     if (!this.authService.isAuthenticated()) {
       setTimeout(() => {

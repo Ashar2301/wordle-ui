@@ -16,6 +16,9 @@ export class LoginService {
     });
   };
 
+  logoutUser = (): Observable<HttpResponse<any>> => {
+    return this.http.get<any>(`${this.url}/logout`, { observe: 'response' });
+  };
   signUpUser = (user: any): Observable<HttpResponse<any>> => {
     return this.http.post<any>(`${this.url}/signup`, user, {
       observe: 'response',

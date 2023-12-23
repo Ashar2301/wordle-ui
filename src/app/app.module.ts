@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { APP_PRIMENG_MODULE, APP_PRIMENG_PROVIDERS } from 'primeng.import';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +21,6 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    NgxWebstorageModule.forRoot(),
   ],
   providers: [
     APP_PRIMENG_PROVIDERS,
@@ -31,7 +29,7 @@ import { SharedModule } from './shared/shared.module';
       useClass: ApiCallsInterceptorInterceptor,
       multi: true,
     },
-    ApiCallsInterceptorInterceptor
+    ApiCallsInterceptorInterceptor,
   ],
   bootstrap: [AppComponent],
 })

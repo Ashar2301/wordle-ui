@@ -15,7 +15,7 @@
   <div
     class="d-flex justify-content-end align-items-center order-3"
     style="width: 33%"
-    [class.display-hidden]="email?.length! <= 0"
+    [class.display-hidden]="name?.length! <= 0"
   >
     <div class="mr-4" (click)="onShowStatsClick()">
       <span
@@ -28,7 +28,7 @@
     </div>
     <div class="mr-4">
       <ngx-avatars
-        [name]="email"
+        [name]="name"
         [style]="customStyles"
         size="40"
         (click)="menu.toggle($event)"
