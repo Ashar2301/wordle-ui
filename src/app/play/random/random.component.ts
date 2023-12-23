@@ -58,6 +58,7 @@ export class RandomComponent implements OnInit, OnChanges {
         gameObject: this.gameObject,
         gameType: 'RANDOM',
         showFooter: true,
+        showAnswerWord: true,
       },
     });
   }

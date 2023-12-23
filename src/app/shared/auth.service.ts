@@ -15,13 +15,11 @@ export class AuthService {
   public login(token: string): void {}
 
   public logout(): void {
+    this.user = null;
     this.loginService.logoutUser().subscribe({
       error: (e) => {
         console.error(e);
-      },
-      complete: () => {
-        this.user = null;
-      },
+      }
     });
   }
 

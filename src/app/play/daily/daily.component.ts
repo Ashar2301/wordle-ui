@@ -66,6 +66,7 @@ export class DailyComponent implements OnInit, OnChanges {
         gameObject: this.gameObject,
         gameType: 'DAILY',
         showFooter: true,
+        showAnswerWord: true,
       },
     });
   }
