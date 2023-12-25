@@ -14,9 +14,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     public dialogService: DialogService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
   name: string = '';
+  email: string = '';
   customStyles: any = {
     backgroundColor: '#7e7e7e',
     border: '1px solid #ffffff',
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     let user = this.authService.returnUser();
     this.name = user?.name;
+    this.email = user?.email;
   }
 
   onLogoutClick = () => {

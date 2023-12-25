@@ -7,17 +7,54 @@
   cursor: pointer;
 }
 .stats-icon {
-  font-size: 40px;
+  font-size : 40px;
   margin-top: 20%;
 }
 .overlay {
-  width: "15rem";
+  width           : "15rem";
   background-color: #3b4f65;
 }
-.logo{
-  width: 74%;
+.logo {
+  width : 74%;
   height: 3rem;
 }
-.display-hidden{
+.display-hidden {
   visibility: hidden;
+}
+.menu h3 {
+  width     : 100%;
+  text-align: center;
+  font-size : 18px;
+  margin-bottom: 1rem;
+}
+.menu h6 {
+  width     : 100%;
+  text-align: center;
+  font-size : 12px;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.menu ul{
+  padding: 0;
+  margin: 0;
+}
+.menu ul li{
+  list-style: none;
+  border-top: 1px solid lightslategray;
+  padding: 10px 0;
+  direction: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.menu ul li span{
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+  opacity: 0.5;
+}
+.menu ul li:hover span{
+  opacity: 1;
 }
