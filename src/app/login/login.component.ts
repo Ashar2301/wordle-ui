@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { ApiCallsInterceptorInterceptor } from '../shared/api-calls-interceptor.interceptor';
 import { AuthService } from '../shared/auth.service';
 import { LoginService } from './login.service';
+import { ForgotPasswordService } from '../forgot-password/forgot-password.service';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +22,15 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  showModal: boolean = false;
+  forgotPasswordEmail: string = '';
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private spinner: NgxSpinnerService,
     private messageService: MessageService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private apiCallsInterceptor: ApiCallsInterceptorInterceptor,
+    private forgotPasswordService: ForgotPasswordService,
     private authService: AuthService
   ) {}
 
@@ -64,6 +66,12 @@ export class LoginComponent implements OnInit {
     return false;
   };
 
+  isForgotPasswordEmailValid = () => {
+    if (this.forgotPasswordEmail.length === 0) return false;
+    let EMAIL_REGEXP =
+      /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    return EMAIL_REGEXP.test(this.forgotPasswordEmail);
+  };
   validateEmail = (c: FormControl) => {
     let EMAIL_REGEXP =
       /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
@@ -96,5 +104,34 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       },
     });
+  };
+  onForgotPasswordClick = async () => {
+    this.spinner.show();
+    this.forgotPasswordService
+      .forgotPassword(this.forgotPasswordEmail)
+      .subscribe({
+        next: (res: HttpResponse<any>) => {
+          if (res.status === 200) {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Info',
+              detail:
+                ' An email has been sent to your email address with a link to reset your password.',
+            });
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error,
+          });
+          this.spinner.hide();
+        },
+        complete: () => {
+          this.spinner.hide();
+          this.showModal = false;
+        },
+      });
   };
 }

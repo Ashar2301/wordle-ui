@@ -7,7 +7,9 @@
 >
   <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
     <div class="text-center mb-5">
-      <div class="text-900 text-3xl font-medium mb-3" (click)="loadMessage()">Welcome Back</div>
+      <div class="text-900 text-3xl font-medium mb-3" (click)="loadMessage()">
+        Welcome Back
+      </div>
       <span class="text-600 font-medium line-height-3"
         >Don't have an account?</span
       >
@@ -62,6 +64,7 @@
           </div>
           <a
             class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
+            (click)="showModal = true"
             >Forgot password?</a
           >
         </div>
@@ -78,3 +81,49 @@
     </form>
   </div>
 </div>
+<p-dialog
+  header="Forgot Password"
+  [(visible)]="showModal"
+  [modal]="true"
+  [style]="{ width: '75vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="mt-3">
+    <label class="block text-900 font-medium mb-4 text-left">
+      Enter the email address associated with your account and we'll send you a
+      link to reset your password.
+    </label>
+    <label for="email1" class="block text-900 font-medium mb-2 text-left"
+      >Email</label
+    >
+    <input
+      id="email1"
+      type="text"
+      placeholder="Email address"
+      pInputText
+      class="w-full mb-3 ng-invalid ng-dirty"
+      [ngClass]="{
+        'ng-invalid': !isForgotPasswordEmailValid(),
+        'ng-dirty': !isForgotPasswordEmailValid()
+      }"
+      [(ngModel)]="forgotPasswordEmail"
+    />
+    <small
+      *ngIf="!isForgotPasswordEmailValid()"
+      id="username2-help"
+      class="p-error block text-left"
+      >Enter a valid Email Address</small
+    >
+  </div>
+  <ng-template pTemplate="footer">
+    <button
+      [disabled]="!isForgotPasswordEmailValid()"
+      (click)="onForgotPasswordClick()"
+      pButton
+      pRipple
+      label="Send"
+      icon="pi pi-check"
+    ></button>
+  </ng-template>
+</p-dialog>

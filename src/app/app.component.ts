@@ -12,7 +12,9 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.isAlreadyAuthenticated();
+    if (!window.location.href.includes('forgotPassword')) {
+      this.isAlreadyAuthenticated();
+    }
   }
   isAlreadyAuthenticated = () => {
     this.authService.isAuthenticated().subscribe({
