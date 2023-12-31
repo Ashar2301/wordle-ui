@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IDailyGames, IRandomGames } from '../shared/interfaces/games.model';
 import { IStatisticsObject } from '../shared/interfaces/stats.model';
+import { GameType } from '../shared/interfaces/enums/game-types.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +16,11 @@ export class PlayService {
 
   constructor(private http: HttpClient) {}
 
-  generateGame = (gameType: string): Observable<HttpResponse<IRandomGames | IDailyGames>> => {
+  generateGame = (gameType: GameType): Observable<HttpResponse<IRandomGames | IDailyGames>> => {
     const params = new HttpParams()
       .set(
         'hardMode',
-        gameType === 'daily' ? this.dailyIsHardMode : this.randomIsHardMode
+        gameType === GameType.DAILY ? this.dailyIsHardMode : this.randomIsHardMode
       );
     return this.http.get<IRandomGames | IDailyGames>(`${this.url}/${gameType}`, {
       params,
@@ -27,20 +28,20 @@ export class PlayService {
     });
   };
 
-  registerAttempt = (attemptObject: any, gameType: string): Observable<HttpResponse<any>> => {
+  registerAttempt = (attemptObject: any, gameType: GameType): Observable<HttpResponse<any>> => {
     return this.http.post<any>(
-      `${this.url}/${gameType}/attempt`,
+      `${this.url}/${gameType.toLowerCase()}/attempt`,
       attemptObject
     );
   };
 
-  returnStats = (gameType: string): Observable<HttpResponse<IStatisticsObject>> => {
-    return this.http.get<IStatisticsObject>(`${this.url}/stats/${gameType}`, {
+  returnStats = (gameType: GameType): Observable<HttpResponse<IStatisticsObject>> => {
+    return this.http.get<IStatisticsObject>(`${this.url}/stats/${gameType.toLowerCase()}`, {
       observe: 'response',
     });
   };
 
-  returnAnswerWord = (gameType: string, gameId: number): Observable<HttpResponse<any>> => {
+  returnAnswerWord = (gameType: GameType, gameId: number): Observable<HttpResponse<any>> => {
     const params = new HttpParams()
       .set('gameType', gameType)
       .set('gameId', gameId);

@@ -9,6 +9,7 @@ import {
   IDailyGames,
   IRandomGames,
 } from 'src/app/shared/interfaces/games.model';
+import { GameType } from 'src/app/shared/interfaces/enums/game-types.model';
 @Component({
   selector: 'app-random',
   templateUrl: './random.component.html',
@@ -28,10 +29,10 @@ export class RandomComponent implements OnInit, OnChanges {
   }
   generateRandomGame = () => {
     this.spinner.show();
-    this.playService.generateGame('random').subscribe({
+    this.playService.generateGame(GameType.RANDOM).subscribe({
       next: (res: HttpResponse<IRandomGames | IDailyGames>) => {
         this.gameObject = res.body!;
-        this.gameObject.type = 'random';
+        this.gameObject.type = GameType.RANDOM;
       },
       error: (err: HttpErrorResponse) => {
         this.spinner.hide();
@@ -60,7 +61,7 @@ export class RandomComponent implements OnInit, OnChanges {
       height: '80vh',
       data: {
         gameObject: this.gameObject,
-        gameType: 'RANDOM',
+        gameType: GameType.RANDOM,
         showFooter: true,
         showAnswerWord: true,
       },
@@ -73,7 +74,7 @@ export class RandomComponent implements OnInit, OnChanges {
       height: '90vh',
       data: {
         gameObject: this.gameObject,
-        gameType: 'RANDOM',
+        gameType: GameType.RANDOM,
         showFooter: true,
         showAnswerWord: true,
       },

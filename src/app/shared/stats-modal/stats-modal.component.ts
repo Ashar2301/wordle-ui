@@ -7,6 +7,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { PlayService } from 'src/app/play/play.service';
 import { SharedService } from '../shared.service';
 import { IStatisticsObject } from '../interfaces/stats.model';
+import { GameType } from '../interfaces/enums/game-types.model';
 
 @Component({
   selector: 'app-stats-modal',
@@ -55,10 +56,10 @@ export class StatsModalComponent implements OnInit {
     this.gameType = this.config.data.gameType;
     // this.showFooter = true;
     // this.gameType = 'DAILY'
-    if (this.gameType === 'DAILY') {
+    if (this.gameType === GameType.DAILY) {
       this.getDailyStats();
       if (this.showAnswerWord) this.getAnswerWordDaily();
-    } else if (this.gameType === 'RANDOM') {
+    } else if (this.gameType === GameType.RANDOM) {
       this.getRandomStats();
       if (this.showAnswerWord) this.getAnswerWordRandom();
     }
@@ -84,7 +85,7 @@ export class StatsModalComponent implements OnInit {
   }
   getDailyStats = () => {
     this.spinner.show();
-    this.playService.returnStats('daily').subscribe({
+    this.playService.returnStats(GameType.DAILY).subscribe({
       next: (res: HttpResponse<IStatisticsObject>) => {
         this.userDailyStats = res.body!;
       },
@@ -105,7 +106,7 @@ export class StatsModalComponent implements OnInit {
   };
   getRandomStats = () => {
     this.spinner.show();
-    this.playService.returnStats('random').subscribe({
+    this.playService.returnStats(GameType.RANDOM).subscribe({
       next: (res: HttpResponse<IStatisticsObject>) => {
         this.userRandomStats = res.body!;
       },
@@ -127,7 +128,7 @@ export class StatsModalComponent implements OnInit {
 
   getAnswerWordDaily = () => {
     this.spinner.show();
-    this.playService.returnAnswerWord('DAILY', this.gameObject._id).subscribe({
+    this.playService.returnAnswerWord(GameType.DAILY, this.gameObject._id).subscribe({
       next: (res: HttpResponse<any>) => {
         this.answerWord = res.body;
       },
@@ -146,7 +147,7 @@ export class StatsModalComponent implements OnInit {
   };
   getAnswerWordRandom = () => {
     this.spinner.show();
-    this.playService.returnAnswerWord('RANDOM', this.gameObject._id).subscribe({
+    this.playService.returnAnswerWord(GameType.RANDOM, this.gameObject._id).subscribe({
       next: (res: HttpResponse<any>) => {
         this.answerWord = res.body;
       },
@@ -205,7 +206,7 @@ export class StatsModalComponent implements OnInit {
     this.ref.close();
   };
   navigateToRandomGames = () => {
-    if (this.gameType === 'RANDOM') window.location.reload();
+    if (this.gameType === GameType.RANDOM) window.location.reload();
     else this.router.navigate(['/play/random']);
   };
   isMobileScreen(): boolean {
