@@ -5,6 +5,10 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { StatsModalComponent } from 'src/app/shared/stats-modal/stats-modal.component';
 import { PlayService } from '../play.service';
+import {
+  IDailyGames,
+  IRandomGames,
+} from 'src/app/shared/interfaces/games.model';
 @Component({
   selector: 'app-random',
   templateUrl: './random.component.html',
@@ -18,15 +22,15 @@ export class RandomComponent implements OnInit, OnChanges {
     private spinner: NgxSpinnerService,
     private messageService: MessageService
   ) {}
-  gameObject: any;
+  gameObject: IRandomGames = {};
   ngOnInit(): void {
     this.generateRandomGame();
   }
   generateRandomGame = () => {
     this.spinner.show();
     this.playService.generateGame('random').subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.gameObject = res.body;
+      next: (res: HttpResponse<IRandomGames | IDailyGames>) => {
+        this.gameObject = res.body!;
         this.gameObject.type = 'random';
       },
       error: (err: HttpErrorResponse) => {

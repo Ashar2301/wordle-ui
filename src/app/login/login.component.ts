@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
   onLoginSubmit = async () => {
     this.spinner.show();
     this.loginService.loginUser(this.loginForm.value).subscribe({
-      next: (res: HttpResponse<any>) => {
+      next: (res: HttpResponse<String>) => {
         this.spinner.hide();
         this.authService.login(this.loginForm.value.email);
         this.router.navigate(['/play']);
@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
     this.forgotPasswordService
       .forgotPassword(this.forgotPasswordEmail)
       .subscribe({
-        next: (res: HttpResponse<any>) => {
+        next: (res: HttpResponse<String>) => {
           if (res.status === 200) {
             this.messageService.add({
               severity: 'info',

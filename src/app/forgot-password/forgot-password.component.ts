@@ -55,7 +55,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.forgotPasswordService.validateURL(token).subscribe({
       next: (res: HttpResponse<any>) => {
         if (res.status === 200) {
-          this.userEmail = res.body.email;
+          this.userEmail = res.body.email!;
           this.isUrlValidated = true;
         } else {
           this.isUrlValidated = false;
@@ -112,7 +112,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.forgotPasswordService
       .resetPassword(this.userEmail, this.resetPasswordForm.value.password)
       .subscribe({
-        next: (res: HttpResponse<any>) => {
+        next: (res: HttpResponse<String>) => {
           if (res.status === 200) {
             this.messageService.add({
               severity: 'info',

@@ -10,17 +10,17 @@ export class LoginService {
   private url = environment.SERVER_API_URL;
   constructor(private http: HttpClient) {}
 
-  loginUser = (user: any): Observable<HttpResponse<any>> => {
-    return this.http.post<any>(`${this.url}/login`, user, {
+  loginUser = (user: any): Observable<HttpResponse<String>> => {
+    return this.http.post<String>(`${this.url}/login`, user, {
       observe: 'response',
     });
   };
 
-  logoutUser = (): Observable<HttpResponse<any>> => {
-    return this.http.get<any>(`${this.url}/logout`, { observe: 'response' });
+  logoutUser = (): Observable<HttpResponse<String>> => {
+    return this.http.get<String>(`${this.url}/logout`, { observe: 'response' });
   };
-  signUpUser = (user: any): Observable<HttpResponse<any>> => {
-    return this.http.post<any>(`${this.url}/signup`, user, {
+  signUpUser = (user: any): Observable<HttpResponse<String>> => {
+    return this.http.post<String>(`${this.url}/signup`, user, {
       observe: 'response',
     });
   };

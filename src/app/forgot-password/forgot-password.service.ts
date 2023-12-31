@@ -20,8 +20,8 @@ export class ForgotPasswordService {
   resetPassword = (
     email: string,
     password: string
-  ): Observable<HttpResponse<any>> => {
-    return this.http.post<any>(
+  ): Observable<HttpResponse<String>> => {
+    return this.http.post<String>(
       `${this.url}/resetPassword`,
       { email, password },
       {
@@ -30,8 +30,8 @@ export class ForgotPasswordService {
     );
   };
 
-  forgotPassword = (email: string): Observable<HttpResponse<any>> => {
-    return this.http.post<any>(
+  forgotPassword = (email: string): Observable<HttpResponse<String>> => {
+    return this.http.post<String>(
       `${this.url}/forgotPassword`,
       { email },
       {

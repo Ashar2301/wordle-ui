@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PlayService } from 'src/app/play/play.service';
 import { SharedService } from '../shared.service';
+import { IStatisticsObject } from '../interfaces/stats.model';
 
 @Component({
   selector: 'app-stats-modal',
@@ -23,8 +24,8 @@ export class StatsModalComponent implements OnInit {
   showAnswerWord: boolean = false;
   showFooter: boolean = false;
   gameObject: any;
-  userRandomStats: any;
-  userDailyStats: any;
+  userRandomStats: IStatisticsObject = {};
+  userDailyStats: IStatisticsObject = {};
   userStats:any;
 
   tabs:any[] = [
@@ -84,8 +85,8 @@ export class StatsModalComponent implements OnInit {
   getDailyStats = () => {
     this.spinner.show();
     this.playService.returnStats('daily').subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.userDailyStats = res.body;
+      next: (res: HttpResponse<IStatisticsObject>) => {
+        this.userDailyStats = res.body!;
       },
       error: (err: HttpErrorResponse) => {
         this.spinner.hide();
@@ -105,8 +106,8 @@ export class StatsModalComponent implements OnInit {
   getRandomStats = () => {
     this.spinner.show();
     this.playService.returnStats('random').subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.userRandomStats = res.body;
+      next: (res: HttpResponse<IStatisticsObject>) => {
+        this.userRandomStats = res.body!;
       },
       error: (err: HttpErrorResponse) => {
         this.spinner.hide();

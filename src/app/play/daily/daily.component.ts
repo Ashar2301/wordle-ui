@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { StatsModalComponent } from 'src/app/shared/stats-modal/stats-modal.component';
 import { PlayService } from '../play.service';
+import { IDailyGames, IRandomGames } from 'src/app/shared/interfaces/games.model';
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.component.html',
@@ -17,7 +18,7 @@ import { PlayService } from '../play.service';
   providers: [DialogService, MessageService],
 })
 export class DailyComponent implements OnInit, OnChanges {
-  gameObject: any;
+  gameObject: IDailyGames = {};
   constructor(
     public dialogService: DialogService,
     private playService: PlayService,
@@ -32,8 +33,8 @@ export class DailyComponent implements OnInit, OnChanges {
   generateDailyGame = () => {
     this.spinner.show();
     this.playService.generateGame('daily').subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.gameObject = res.body;
+      next: (res: HttpResponse<IRandomGames | IDailyGames>) => {
+        this.gameObject = res.body!;
         this.gameObject.type = 'daily';
       },
       error: (err: HttpErrorResponse) => {

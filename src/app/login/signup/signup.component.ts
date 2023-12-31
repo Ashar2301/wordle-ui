@@ -107,7 +107,7 @@ export class SignupComponent implements OnInit {
   onSignupSubmit=async()=>{
     this.spinner.show();
     this.loginService.signUpUser(this.signupForm.value).subscribe({
-      next: (res: HttpResponse<any>) => {
+      next: (res: HttpResponse<String>) => {
         this.spinner.hide();
         this.router.navigate(['/'])
       },
