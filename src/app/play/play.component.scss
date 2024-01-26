@@ -31,20 +31,14 @@
   }
 
   .cardz-footer {
-    //   visibility      : hidden;
     position: relative;
     bottom: 50px;
     width: 90%;
-    //   height          : 10vh;
     border-radius: 8px;
     color: white;
     background-color: inherit;
     border-bottom: 1px solid white;
   }
-  // .cardz:hover .cardz-footer {
-  //     visibility: visible;
-  //     transform : translateY(0);
-  //   }
 }
 @media screen and (max-width: 768px) {
   .option-1 ::ng-deep .p-card {

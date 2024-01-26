@@ -18,32 +18,32 @@
       class="d-flex justify-content-center align-items-center"
     ></p-tabMenu>
   </div>
-  <div class="d-flex" [ngClass]="{'flex-column align-items-center' : isMobileScreen()}" style="margin-top: 10rem;">
+  <div class="d-flex" [ngClass]="{'flex-column align-items-center' : isMobileScreen()}" style="margin-top: 1rem;">
     <div class="stats w-50 mt-5">
-      <h3 class="text-center m-4">Statistics</h3>
+      <h3 class="text-center m-4 underline">Statistics</h3>
       <div class="d-flex align-items-center justify-content-center">
         <table class="table table-dark table-striped">
           <tr>
             <th>Played</th>
-            <td>{{ userStats?.played ?? 0 }}</td>
+            <td class="stats">{{ userStats?.played ?? 0 }} Game(s)</td>
           </tr>
           <tr>
             <th>Win %</th>
-            <td>{{ userStats?.percentageWins ?? 0 }}</td>
+            <td class="stats">{{ userStats?.percentageWins | number : '1.2-2' ?? 0 }} %</td>
           </tr>
           <tr>
             <th>Current Streak</th>
-            <td>{{ userStats?.currentStreak ?? 0 }}</td>
+            <td class="stats">{{ userStats?.currentStreak ?? 0 }} Game(s)</td>
           </tr>
           <tr>
             <th>Max Streak</th>
-            <td>{{ userStats?.maxStreak ?? 0 }}</td>
+            <td class="stats">{{ userStats?.maxStreak ?? 0 }} Game(s)</td>
           </tr>
         </table>
       </div>
     </div>
     <div class="distribution w-100">
-      <h3 class="text-center m4">Guess Distribution</h3>
+      <h3 class="text-center m4 underline">Guess Distribution</h3>
       <div
         class="distribution d-flex justify-content-center align-items-center"
       >
@@ -51,7 +51,7 @@
           type="doughnut"
           [data]="pieData"
           [options]="pieOptions"
-          [style]="{ width: '300px' }"
+          [style]="{ width: '400px' }"
         ></p-chart>
       </div>
     </div>

@@ -167,7 +167,7 @@ export class StatsModalComponent implements OnInit {
 
   configurePieChart = () => {
     this.pieData = {
-      labels: ['1', '2', '3', '4', '5', '6'],
+      labels: ['Wins in 1 Attempt', 'Wins in 2 Attempts', 'Wins in 3 Attempts', 'Wins in 4 Attempts', 'Wins in 5 Attempts', 'Wins in 6 Attempts'],
       datasets: [
         {
           data: this.userStats.guessDistribution,

@@ -390,7 +390,7 @@ export class WordleComponent implements OnInit {
   };
   ngOnChanges(changes: SimpleChanges): void {
     let ind = -1;
-    this.gameObject?.attempts.letters.forEach(
+    this.gameObject?.attempts?.letters?.forEach(
       (elm: string[], index: number) => {
         ind = index;
         for (let i = 0; i < elm.length; i++) {
@@ -400,7 +400,7 @@ export class WordleComponent implements OnInit {
     );
     if (ind + 1 < this.wordMatrix.length)
       this.wordMatrix[ind + 1][0].reference.focus();
-    this.gameObject?.attempts.colors.forEach((elm: string[], index: number) => {
+    this.gameObject?.attempts?.colors?.forEach((elm: string[], index: number) => {
       this.colorTheLetters(index, elm);
     });
   }
