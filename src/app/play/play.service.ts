@@ -29,7 +29,7 @@ export class PlayService {
   };
 
   registerAttempt = (attemptObject: any, gameType: GameType): Observable<HttpResponse<any>> => {
-    return this.http.post<any>(
+    return this.http.post<HttpResponse<any>>(
       `${this.url}/${gameType.toLowerCase()}/attempt`,
       attemptObject
     );

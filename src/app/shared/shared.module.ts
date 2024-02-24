@@ -9,6 +9,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { StatsModalComponent } from './stats-modal/stats-modal.component';
 import { WordleComponent } from './wordle/wordle.component';
 import { WordleDirective } from './wordle/wordle.directive';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { WordleDirective } from './wordle/wordle.directive';
     FormsModule,
     APP_PRIMENG_MODULE,
     NgxSpinnerModule,
-    AvatarModule
+    AvatarModule,
+    ReactiveFormsModule
   ]
   ,exports:[
     WordleComponent,

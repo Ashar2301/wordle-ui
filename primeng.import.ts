@@ -27,6 +27,7 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {MenuItem} from 'primeng/api';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 //
 export const APP_PRIMENG_MODULE = [
   SharedModule,
@@ -55,6 +56,7 @@ export const APP_PRIMENG_MODULE = [
   ToggleButtonModule,
   OverlayPanelModule,
   TabMenuModule,
+  InputTextareaModule
 ];
 //
 export const APP_PRIMENG_COMPONENTS = [Dialog, ConfirmDialog, Header, Footer];

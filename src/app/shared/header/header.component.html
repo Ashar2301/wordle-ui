@@ -1,3 +1,5 @@
+<p-toast position="top-center"></p-toast>
+<loader></loader>
 <div
   class="header-wrapper d-flex flex-row justify-content-between align-items-center"
   style="color: white"
@@ -33,41 +35,12 @@
         (click)="menu.toggle($event)"
       ></ngx-avatars>
       <p-overlayPanel #menu class="overlay">
-        <!-- <div class="d-flex flex-column">
-          <div>
-            <ngx-avatars
-              [name]="name"
-              [style]="customStyles"
-              size="40"
-              (click)="menu.toggle($event)"
-            ></ngx-avatars>
-            <p>{{ name }}</p>
-          </div>
-          <button
-            pButton
-            pRipple
-            type="button"
-            label="Report a bug"
-            class="mb-2"
-          >
-            <span class="material-symbols-outlined"> bug_report </span>
-          </button>
-          <button
-            pButton
-            pRipple
-            type="button"
-            label="Log out"
-            (click)="onLogoutClick()"
-          >
-            <span class="material-symbols-outlined logout-icon"> logout </span>
-          </button>
-        </div> -->
         <div class="menu">
           <h3>{{ name }}</h3>
           <h6>{{email}}</h6>
           <ul>
             <li>
-              <a
+              <a (click)="showModal = true"
                 ><span class="material-symbols-outlined"> bug_report </span
                 >Report a bug</a
               >
@@ -85,3 +58,56 @@
     </div>
   </div>
 </div>
+<p-dialog
+  header="Report Bug"
+  [(visible)]="showModal"
+  [modal]="true"
+  [style]="{ width: '75vw' }"
+  [draggable]="false"
+  [resizable]="false">
+  <form [formGroup]="reportBugForm" (ngSubmit)="onUploadBugClick()">
+    <div>
+      <label for="email1" class="block text-900 font-medium mb-2"
+        >Bug Description</label
+      >
+      <textarea
+      pInputTextarea
+        formControlName="description"
+        id="description"
+        type="text"
+        placeholder="Enter description of bug"
+        pInputText
+        class="w-full mb-3 ng-invalid ng-dirty"
+        [ngClass]="{
+          'ng-invalid': !this.reportBugForm.controls['description'].value.length,
+          'ng-dirty': !this.reportBugForm.controls['description'].value.length
+        }"
+      ></textarea>
+      <small *ngIf="!this.reportBugForm.controls['description'].value.length" id="username2-help" class="p-error block"
+        >Required Field!</small
+      >
+
+      <label for="password1" class="block text-900 font-medium mb-2"
+        >Upload File (Optional)</label
+      >
+      <input
+        id="file"
+        type="file"
+        placeholder="Upload File"
+        class="w-full mb-3"
+        accept="image/*"
+        (change)="onFileUploadChange($event)"
+      />
+
+
+      <button
+        [disabled]="!this.reportBugForm.valid"
+        pButton
+        pRipple
+        label="Report Bug"
+        icon="pi pi-user"
+        class="w-full"
+      ></button>
+    </div>
+  </form>
+</p-dialog>
