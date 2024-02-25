@@ -1,23 +1,26 @@
 <div class="d-flex flex-column h-100">
-  <div
-    class="d-flex justify-content-center align-items-center"
-    *ngIf="showAnswerWord"
-  >
-    <div class="d-flex justify-content-evenly mt-4">
-      <div class="letters">{{ answerWord[0] }}</div>
-      <div class="letters">{{ answerWord[1] }}</div>
-      <div class="letters">{{ answerWord[2] }}</div>
-      <div class="letters">{{ answerWord[3] }}</div>
-      <div class="letters">{{ answerWord[4] }}</div>
-    </div>
-  </div>
-  <div *ngIf="gameType === 'BOTH'">
-    <p-tabMenu
-      [model]="tabs"
-      [activeItem]="tabs[0]"
+  @if (showAnswerWord) {
+    <div
       class="d-flex justify-content-center align-items-center"
-    ></p-tabMenu>
-  </div>
+      >
+      <div class="d-flex justify-content-evenly mt-4">
+        <div class="letters">{{ answerWord[0] }}</div>
+        <div class="letters">{{ answerWord[1] }}</div>
+        <div class="letters">{{ answerWord[2] }}</div>
+        <div class="letters">{{ answerWord[3] }}</div>
+        <div class="letters">{{ answerWord[4] }}</div>
+      </div>
+    </div>
+  }
+  @if (gameType === 'BOTH') {
+    <div>
+      <p-tabMenu
+        [model]="tabs"
+        [activeItem]="tabs[0]"
+        class="d-flex justify-content-center align-items-center"
+      ></p-tabMenu>
+    </div>
+  }
   <div class="d-flex" [ngClass]="{'flex-column align-items-center' : isMobileScreen()}" style="margin-top: 1rem;">
     <div class="stats w-50 mt-5">
       <h3 class="text-center m-4 underline">Statistics</h3>
@@ -46,7 +49,7 @@
       <h3 class="text-center m4 underline">Guess Distribution</h3>
       <div
         class="distribution d-flex justify-content-center align-items-center"
-      >
+        >
         <p-chart
           type="doughnut"
           [data]="pieData"
@@ -56,32 +59,38 @@
       </div>
     </div>
   </div>
-  <div *ngIf="showFooter">
-    <p class="text-center" *ngIf="gameType === 'DAILY'">
-      New Wordle will appear in
-      <strong *ngIf="hoursUntilNewWordle > 0"
-        >{{ hoursUntilNewWordle }} hour(s) ,
-      </strong>
-      <strong>{{ minutesUntilNewWordle }} minute(s)</strong>
-    </p>
-    <div class="d-flex justify-content-between mt-4">
-      <button
-        pButton
-        icon="pi pi-refresh"
-        iconPos="right"
-        (click)="navigateToRandomGames()"
-      >
-        Play Random Wordle
-      </button>
-      <p-divider layout="vertical"></p-divider>
-      <button
-        pButton
-        icon="pi pi-times"
-        iconPos="right"
-        (click)="onCloseClick()"
-      >
-        Close
-      </button>
+  @if (showFooter) {
+    <div>
+      @if (gameType === 'DAILY') {
+        <p class="text-center">
+          New Wordle will appear in
+          @if (hoursUntilNewWordle > 0) {
+            <strong
+              >{{ hoursUntilNewWordle }} hour(s) ,
+            </strong>
+          }
+          <strong>{{ minutesUntilNewWordle }} minute(s)</strong>
+        </p>
+      }
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          pButton
+          icon="pi pi-refresh"
+          iconPos="right"
+          (click)="navigateToRandomGames()"
+          >
+          Play Random Wordle
+        </button>
+        <p-divider layout="vertical"></p-divider>
+        <button
+          pButton
+          icon="pi pi-times"
+          iconPos="right"
+          (click)="onCloseClick()"
+          >
+          Close
+        </button>
+      </div>
     </div>
-  </div>
+  }
 </div>
